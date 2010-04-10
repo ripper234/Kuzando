@@ -38,9 +38,6 @@
     <Reference Include="Castle.Core">
       <HintPath>..\Lib\Castle\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.MicroKernel">
-      <HintPath>..\Lib\Castle\Castle.MicroKernel.dll</HintPath>
-    </Reference>
     <Reference Include="Castle.Windsor">
       <HintPath>..\Lib\Castle\Castle.Windsor.dll</HintPath>
     </Reference>

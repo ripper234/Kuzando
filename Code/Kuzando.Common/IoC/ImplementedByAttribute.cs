@@ -14,6 +14,7 @@ namespace Kuzando.Common.IoC
     [AttributeUsage(AttributeTargets.Interface, Inherited = false)]
     public class ImplementedByAttribute : Attribute
     {
+        // todo - http://stackoverflow.com/questions/2612841/what-happened-to-castle-core-lifestyletype-in-1-3-0
         public ImplementedByAttribute(Type serviceType)
         {
             ServiceType = serviceType;

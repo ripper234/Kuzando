@@ -35,18 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.ActiveRecord, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\Castle\Castle.ActiveRecord.dll</HintPath>
-    </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\Lib\Castle\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Facilities.ActiveRecordIntegration">
       <HintPath>..\Lib\Castle\Castle.Facilities.ActiveRecordIntegration.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.MicroKernel">
-      <HintPath>..\Lib\Castle\Castle.MicroKernel.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor">
       <HintPath>..\Lib\Castle\Castle.Windsor.dll</HintPath>

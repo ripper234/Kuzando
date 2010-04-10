@@ -6,14 +6,15 @@ using Castle.ActiveRecord;
 
 namespace Kuzando.Model.Entities.DB
 {
+
     [ActiveRecord]
     public class Task
     {
         [PrimaryKey]
         public virtual int Id { get; set; }
 
-        [PrimaryKey]
-        public virtual int UserId { get; set; }
+        [BelongsTo]
+        public virtual User User { get; set; }
 
         [Property]
         public virtual string Title { get; set; }
