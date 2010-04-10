@@ -42,14 +42,16 @@ namespace Kuzando.Util
             {
                 for (int i = 0; i < 5; ++i)
                 {
-                    var task = new Task();
-                    task.Title = "Task number " + (i + 1);
-                    task.Body =
-                        "This is an important task. One of many. In fact, I'm sure there will be many many more.";
-                    task.DueDate = _randomizer.RandomDate();
-                    task.CreationDate = _randomizer.RandomDate();
-                    task.Importance = _randomizer.RandomEnum<Importance>();
-                    task.User = user;
+                    var task = new Task
+                                   {
+                                       Title = "Task number " + (i + 1),
+                                       Body =
+                                           "This is an important task. One of many. In fact, I'm sure there will be many many more.",
+                                       DueDate = _randomizer.RandomDate(),
+                                       CreationDate = _randomizer.RandomDate(),
+                                       Importance = _randomizer.RandomEnum<Importance>(),
+                                       User = user
+                                   };
                     _tasksRepository.Save(task);
                 }
             }
@@ -61,11 +63,13 @@ namespace Kuzando.Util
         {
             Console.WriteLine("Adding users");
 
-            var user = new User();
-            user.Name = "Aya Federman";
-            user.OpenId = "asdf";
-            user.SignupDate = DateTime.Now;
-            user.Email = "chaoticdawn@gmail.com";
+            var user = new User
+                           {
+                               Name = "Aya Federman",
+                               OpenId = "asdf",
+                               SignupDate = DateTime.Now,
+                               Email = "chaoticdawn@gmail.com"
+                           };
 
             _users.Add(user);
             _userRepository.Save(user);
