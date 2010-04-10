@@ -5,3 +5,4 @@ obj/
 *.hbm.xml
 *.bak
 _ReSharper*
+*.ReSharper.user
