@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Kuzando.Core.Bootsrap;
 using NHibernate;
 
@@ -16,11 +13,15 @@ namespace Kuzando.Util
             _sessionFactory = sessionFactory;
         }
 
+        #region IDataSeeder Members
+
         public void Run()
         {
             Console.WriteLine("Populating database");
 
             DBUtils.ClearDatabase(_sessionFactory);
         }
+
+        #endregion
     }
 }

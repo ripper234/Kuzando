@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Web.Mvc;
 using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using System.Web.Mvc;
 
 #endregion
 
@@ -62,36 +62,38 @@ namespace Kuzando.Common.IoC
 
         private static void RegisterControllersInAssembly(IWindsorContainer container, Assembly assembly)
         {
-            var types = from type in assembly.GetExportedTypes()
-                        where typeof (Controller).IsAssignableFrom(type) 
-                        select type;
-            foreach (var type in types)
+            IEnumerable<Type> types = from type in assembly.GetExportedTypes()
+                                      where typeof (Controller).IsAssignableFrom(type)
+                                      select type;
+            foreach (Type type in types)
             {
                 var nameRegex = new Regex("(.*)Controller");
-                var match = nameRegex.Match(type.Name);
+                Match match = nameRegex.Match(type.Name);
                 if (!match.Success)
                     continue; // we auto-register only controllers named FooController
 
-                var component = Component.For(type).Named(match.Groups[1].Value).LifeStyle.PerWebRequest;
-                
+                ComponentRegistration<object> component =
+                    Component.For(type).Named(match.Groups[1].Value).LifeStyle.PerWebRequest;
+
                 container.Register(component);
             }
         }
 
-        private static void RegisterServiceInterfaces(IWindsorContainer container, Assembly assembly, ICollection<Type> implementationsToSkip)
+        private static void RegisterServiceInterfaces(IWindsorContainer container, Assembly assembly,
+                                                      ICollection<Type> implementationsToSkip)
         {
-            var types = from type in assembly.GetExportedTypes()
-                        where type.IsAbstract == false
-                              && type.IsInterface == false
-                              && implementationsToSkip.Contains(type) == false
-                        select type;
+            IEnumerable<Type> types = from type in assembly.GetExportedTypes()
+                                      where type.IsAbstract == false
+                                            && type.IsInterface == false
+                                            && implementationsToSkip.Contains(type) == false
+                                      select type;
 
-            foreach (var type in types)
+            foreach (Type type in types)
             {
-                var serviceName = "I" + type.Name;
+                string serviceName = "I" + type.Name;
                 LifestyleType lifestyle;
 
-                var interfaceType =
+                Type interfaceType =
                     type.GetInterfaces().
                         Where(i => i.GetAttribute<ImplementedByAttribute>() != null).
                         SingleOrDefault();
@@ -112,7 +114,7 @@ namespace Kuzando.Common.IoC
                         continue;
                 }
 
-                var registration = Component
+                ComponentRegistration<object> registration = Component
                     .For(interfaceType)
                     .ImplementedBy(type)
                     .LifeStyle.Is(lifestyle);

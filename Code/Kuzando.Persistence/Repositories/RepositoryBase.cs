@@ -18,11 +18,7 @@ namespace Kuzando.Persistence.Repositories
             SessionFactory = sessionFactory;
         }
 
-        protected ISessionFactory SessionFactory
-        {
-            get;
-            private set;
-        }
+        protected ISessionFactory SessionFactory { get; private set; }
 
         public virtual T GetById(int id)
         {
@@ -45,7 +41,7 @@ namespace Kuzando.Persistence.Repositories
 
             builder.Append("IN (");
             bool first = true;
-            foreach (var id in ids)
+            foreach (int id in ids)
             {
                 if (first)
                 {
@@ -60,11 +56,11 @@ namespace Kuzando.Persistence.Repositories
 
         protected Dictionary<int, int> RunQuery(string sql, Func<IGrouping<object, object[]>, int> valueSelector)
         {
-            using (var session = SessionFactory.OpenSession())
+            using (ISession session = SessionFactory.OpenSession())
             {
-                var query = session.CreateQuery(sql);
-                var result = query.List().Cast<object[]>().GroupBy(x => x[0]);
-                return result.ToDictionary(x1 => (int)x1.Key, valueSelector);
+                IQuery query = session.CreateQuery(sql);
+                IEnumerable<IGrouping<object, object[]>> result = query.List().Cast<object[]>().GroupBy(x => x[0]);
+                return result.ToDictionary(x1 => (int) x1.Key, valueSelector);
             }
         }
     }

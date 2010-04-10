@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NHibernate;
+﻿using NHibernate;
 
 namespace Kuzando.Core.Bootsrap
 {
@@ -10,8 +6,8 @@ namespace Kuzando.Core.Bootsrap
     {
         public static void ClearDatabase(ISessionFactory sessionFactory)
         {
-            using (var session = sessionFactory.OpenSession())
-            using (var tx = session.BeginTransaction())
+            using (ISession session = sessionFactory.OpenSession())
+            using (ITransaction tx = session.BeginTransaction())
             {
                 AddQuery(session, "truncate table tasks");
                 AddQuery(session, "truncate table users");

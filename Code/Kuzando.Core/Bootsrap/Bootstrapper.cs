@@ -25,9 +25,9 @@ namespace Kuzando.Core.Bootsrap
         public WindsorContainer CreateContainer(params Assembly[] extreaAssemblies)
         {
             var container = new WindsorContainer(new XmlInterpreter(new FileResource("castle.xml")));
-            container.AutoWireServicesIn(typeof(IUserRepository).Assembly);
+            container.AutoWireServicesIn(typeof (IUserRepository).Assembly);
 
-            foreach (var assembly in extreaAssemblies)
+            foreach (Assembly assembly in extreaAssemblies)
             {
                 container.AutoWireServicesIn(assembly);
             }

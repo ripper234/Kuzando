@@ -14,7 +14,7 @@ namespace Kuzando.Common
                 return default(TValue);
 
             TValue value;
-            return dictionary.TryGetValue(key, out value) ? value :default(TValue);
+            return dictionary.TryGetValue(key, out value) ? value : default(TValue);
         }
     }
 }

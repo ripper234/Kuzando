@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+using Castle.Windsor;
 using Kuzando.Core.Bootsrap;
 
 namespace Kuzando.Util
 {
-    class Program
+    internal class Program
     {
         private static void Main()
         {
             try
             {
-                var container = Bootstrapper.Instance.CreateContainer(typeof(Program).Assembly);
+                WindsorContainer container = Bootstrapper.Instance.CreateContainer(typeof (Program).Assembly);
 
                 // run it
                 container.Resolve<IDataSeeder>().Run();

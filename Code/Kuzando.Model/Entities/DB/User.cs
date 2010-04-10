@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Castle.ActiveRecord;
 
 namespace Kuzando.Model.Entities.DB
@@ -16,7 +14,7 @@ namespace Kuzando.Model.Entities.DB
         public virtual string Name { get; set; }
 
         [HasMany]
-        public virtual IList<Task> Tasks{ get; set; }
+        public virtual IList<Task> Tasks { get; set; }
 
         [Property]
         public DateTime SignupDate { get; set; }
