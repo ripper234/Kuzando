@@ -4,3 +4,4 @@ obj/
 *.resharper.*
 *.hbm.xml
 *.bak
+_ReSharper*
