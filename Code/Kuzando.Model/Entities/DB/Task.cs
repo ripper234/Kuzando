@@ -9,7 +9,7 @@ namespace Kuzando.Model.Entities.DB
         [PrimaryKey]
         public virtual int Id { get; set; }
 
-        [BelongsTo]
+        [BelongsTo("UserId")]
         public virtual User User { get; set; }
 
         [Property]

@@ -24,7 +24,7 @@ CREATE TABLE `tasks` (
   `UserId` int(4) unsigned NOT NULL,
   `Title` varchar(100) NOT NULL,
   `Body` varchar(5000) NOT NULL,
-  `CreatedDate` datetime NOT NULL,
+  `CreationDate` datetime NOT NULL,
   `DueDate` datetime DEFAULT NULL,
   `IsDone` tinyint(1) NOT NULL,
   `Importance` tinyint(4) NOT NULL,
