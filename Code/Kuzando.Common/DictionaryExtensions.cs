@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace StackUnderflow.Common
+namespace Kuzando.Common
 {
     public static class DictionaryExtensions
     {

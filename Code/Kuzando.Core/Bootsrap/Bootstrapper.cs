@@ -5,12 +5,11 @@ using Castle.Core.Resource;
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using Kuzando.Common.IoC;
-using Kuzando.IoC;
 using Kuzando.Persistence.Repositories;
 
 #endregion
 
-namespace Kuzando.Bootstrap
+namespace Kuzando.Core.Bootsrap
 {
     public class Bootstrapper
     {

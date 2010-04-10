@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StackUnderflow.Common
+namespace Kuzando.Common
 {
     public static class CollectionExtensions
     {
@@ -25,7 +25,7 @@ namespace StackUnderflow.Common
         }
 
         public static TValue? GetOrNull<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
-                        where TValue : struct
+            where TValue : struct
         {
             if (dict == null)
                 return null;

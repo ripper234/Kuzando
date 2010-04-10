@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using Castle.ActiveRecord;
 using NHibernate;
-using Kuzando.Model.Entities;
 
 #endregion
 
-namespace StackUnderflow.Persistence.Repositories
+namespace Kuzando.Persistence.Repositories
 {
     public abstract class RepositoryBase<T> where T : class
     {

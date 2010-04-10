@@ -8,12 +8,11 @@ using System.Text.RegularExpressions;
 using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using StackUnderflow.IoC.Delver.Framework.IoC;
 using System.Web.Mvc;
 
 #endregion
 
-namespace StackUnderflow.Common.IoC
+namespace Kuzando.Common.IoC
 {
     /// <summary>
     ///   Allow auto wiring of services to the container using conventions
