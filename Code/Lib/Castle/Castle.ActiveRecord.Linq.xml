@@ -55,65 +55,40 @@
         </member>
         <member name="T:Castle.ActiveRecord.Linq.LinqQuery`1">
             <summary>
-            Linq Active Record Query
+            Class used internally to glue NHibernate.Linq, NHibernate, and ActiveRecord together
+            via ExecuteQuery. This appeared to be the cleanest way of connecting to the appropriate
+            type and scope specific ISession instance. 
             </summary>
-        </member>
-        <member name="M:Castle.ActiveRecord.Linq.LinqQuery`1.#ctor(NHibernate.Linq.QueryOptions,System.Linq.Expressions.Expression,System.Type)">
-            <summary>
-            
-            </summary>
-            <param name="options"></param>
-            <param name="expression"></param>
-            <param name="rootType"></param>
+            <typeparam name="T">The type of the active record class the Linq collection 
+            is being bound against.</typeparam>
         </member>
         <member name="M:Castle.ActiveRecord.Linq.LinqQuery`1.Execute(NHibernate.ISession)">
-            <inheritDoc />
-        </member>
-        <member name="M:Castle.ActiveRecord.Linq.LinqQuery`1.Enumerate(NHibernate.ISession)">
-            <inheritDoc />
-        </member>
-        <member name="P:Castle.ActiveRecord.Linq.LinqQuery`1.RootType">
-            <inheritDoc/>
-        </member>
-        <member name="P:Castle.ActiveRecord.Linq.LinqQuery`1.Result">
-            <inheritDoc/>
-        </member>
-        <member name="T:Castle.ActiveRecord.Linq.QueryProvider`1">
             <summary>
-            Default Active Record implementation of <see cref="T:NHibernate.Linq.QueryProvider"/>.
+            Executes the query using specified session.
             </summary>
-            <typeparam name="T"></typeparam>
+            <param name="session">The session.</param>
+            <returns></returns>
         </member>
-        <member name="M:Castle.ActiveRecord.Linq.QueryProvider`1.#ctor(NHibernate.Linq.QueryOptions)">
+        <member name="M:Castle.ActiveRecord.Linq.LinqQuery`1.Castle#ActiveRecord#IActiveRecordQuery#Enumerate(NHibernate.ISession)">
             <summary>
-            
+            Enumerates over the result of the query.
+            Note: Only use if you expect most of your values to already exist in the second level cache!
             </summary>
-            <param name="options"></param>
+            <param name="session"></param>
+            <returns></returns>
         </member>
-        <member name="M:Castle.ActiveRecord.Linq.QueryProvider`1.Execute(System.Linq.Expressions.Expression)">
-            <inheritDoc />
-        </member>
-        <member name="P:Castle.ActiveRecord.Linq.QueryProvider`1.Experimental">
+        <member name="M:Castle.ActiveRecord.Linq.LinqQuery`1.Castle#ActiveRecord#IActiveRecordQuery#Execute(NHibernate.ISession)">
             <summary>
-            when set to true, enables experimental support for LINQ queries without need to use explicit session scope.
+            Executes the specified query and return the results
             </summary>
+            <param name="session">The session to execute the query in.</param>
+            <returns></returns>
         </member>
-        <member name="T:Castle.ActiveRecord.Linq.LinqResultWrapper`1">
-            <inheritDoc/>
-        </member>
-        <member name="M:Castle.ActiveRecord.Linq.LinqResultWrapper`1.#ctor(NHibernate.Linq.QueryOptions,System.Linq.Expressions.Expression,System.Type)">
+        <member name="P:Castle.ActiveRecord.Linq.LinqQuery`1.Castle#ActiveRecord#IActiveRecordQuery#RootType">
             <summary>
-            
+            Gets the target type of this query
             </summary>
-            <param name="options"></param>
-            <param name="expression"></param>
-            <param name="rootType"></param>
-        </member>
-        <member name="M:Castle.ActiveRecord.Linq.LinqResultWrapper`1.GetEnumerator">
-            <inheritDoc/>
-        </member>
-        <member name="M:Castle.ActiveRecord.Linq.LinqResultWrapper`1.System#Collections#IEnumerable#GetEnumerator">
-            <inheritDoc/>
+            <value></value>
         </member>
     </members>
 </doc>

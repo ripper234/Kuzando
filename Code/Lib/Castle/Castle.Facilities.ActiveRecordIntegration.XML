@@ -4,54 +4,6 @@
         <name>Castle.Facilities.ActiveRecordIntegration</name>
     </assembly>
     <members>
-        <member name="T:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility">
-            <summary>
-            Provides integration with ActiveRecord framework.
-            </summary>
-        </member>
-        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility"/> class.
-            </summary>
-        </member>
-        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.#ctor(System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility"/> class.
-            </summary>
-        </member>
-        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.#ctor(System.Boolean,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility"/> class.
-            </summary>
-        </member>
-        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.Init">
-            <summary>
-            The custom initialization for the Facility.
-            </summary>
-            <remarks>It must be overriden.</remarks>
-        </member>
-        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.Dispose">
-            <summary>
-            Performs the tasks associated with freeing, releasing, or resetting
-            the facility resources.
-            </summary>
-            <remarks>It can be overriden.</remarks>
-        </member>
-        <member name="T:Castle.Facilities.ActiveRecordIntegration.SessionFactoryDelegate">
-            <summary>
-            Implements <see cref="T:NHibernate.ISessionFactory"/> allowing 
-            it to be used by the container as an ordinary component.
-            However only <see cref="M:NHibernate.ISessionFactory.OpenSession(System.Data.IDbConnection)"/>
-            is implemented
-            </summary>
-        </member>
-        <member name="M:Castle.Facilities.ActiveRecordIntegration.SessionFactoryDelegate.Create(Castle.ActiveRecord.Framework.ISessionFactoryHolder,System.Type)">
-            <summary>
-            Creates the specified session factory delegate from the holder and root type
-            </summary>
-            <param name="sessionFactoryHolder">The session factory holder.</param>
-            <param name="arType">Type of the AR entity.</param>
-        </member>
         <member name="T:Castle.Facilities.ActiveRecordIntegration.TransactionScopeResourceAdapter">
             <summary>
             
@@ -85,6 +37,39 @@
             <summary>
             Releases unmanaged and - optionally - managed resources
             </summary>
+        </member>
+        <member name="T:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility">
+            <summary>
+            Provides integration with ActiveRecord framework.
+            </summary>
+        </member>
+        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility"/> class.
+            </summary>
+        </member>
+        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility"/> class.
+            </summary>
+        </member>
+        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.#ctor(System.Boolean,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility"/> class.
+            </summary>
+        </member>
+        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.Init">
+            <summary>
+            The custom initialization for the Facility.
+            </summary>
+            <remarks>It must be overriden.</remarks>
+        </member>
+        <member name="M:Castle.Facilities.ActiveRecordIntegration.ActiveRecordFacility.Dispose">
+            <summary>
+            Performs the tasks associated with freeing, releasing, or resetting
+            the facility resources.
+            </summary>
+            <remarks>It can be overriden.</remarks>
         </member>
         <member name="T:Castle.Facilities.ActiveRecordIntegration.SafeSessionProxy">
             <summary>
@@ -1017,6 +1002,21 @@
             Gets the active entity mode.
             </summary>
             <value>The active entity mode.</value>
+        </member>
+        <member name="T:Castle.Facilities.ActiveRecordIntegration.SessionFactoryDelegate">
+            <summary>
+            Implements <see cref="T:NHibernate.ISessionFactory"/> allowing 
+            it to be used by the container as an ordinary component.
+            However only <see cref="M:NHibernate.ISessionFactory.OpenSession(System.Data.IDbConnection)"/>
+            is implemented
+            </summary>
+        </member>
+        <member name="M:Castle.Facilities.ActiveRecordIntegration.SessionFactoryDelegate.Create(Castle.ActiveRecord.Framework.ISessionFactoryHolder,System.Type)">
+            <summary>
+            Creates the specified session factory delegate from the holder and root type
+            </summary>
+            <param name="sessionFactoryHolder">The session factory holder.</param>
+            <param name="arType">Type of the AR entity.</param>
         </member>
     </members>
 </doc>
