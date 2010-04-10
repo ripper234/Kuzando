@@ -1,6 +1,9 @@
-﻿namespace Kuzando.Persistence.Repositories
+﻿using Kuzando.Model.Entities.DB;
+using StackUnderflow.Persistence.Repositories;
+
+namespace Kuzando.Persistence.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
     }
 }

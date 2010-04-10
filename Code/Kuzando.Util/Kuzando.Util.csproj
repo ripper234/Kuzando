@@ -88,6 +88,14 @@
       <Project>{B7AE0532-2532-41D5-9D09-CDF1AA750AE1}</Project>
       <Name>Kuzando.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Kuzando.Model\Kuzando.Model.csproj">
+      <Project>{D3E4C079-6D97-4F09-B6E7-D4929D57546E}</Project>
+      <Name>Kuzando.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kuzando.Persistence\Kuzando.Persistence.csproj">
+      <Project>{0BCCF659-AED5-4947-8AF4-2BC45E4C91CE}</Project>
+      <Name>Kuzando.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
