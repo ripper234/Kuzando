@@ -1,4 +1,4 @@
-﻿namespace StackUnderflow.Persistence.Repositories
+﻿namespace Kuzando.Common
 {
     public interface IRepository<T>
     {

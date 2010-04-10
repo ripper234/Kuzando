@@ -59,7 +59,13 @@
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="IoC\AutoWireServicesExtensions.cs" />
     <Compile Include="IoC\ImplementedByAttribute.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\EmptyModel.cs" />
+    <Compile Include="Web\ItemModel.cs" />
+    <Compile Include="Web\ItemsModel.cs" />
+    <Compile Include="Web\ModelBase.cs" />
+    <Compile Include="Web\UserAwareController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

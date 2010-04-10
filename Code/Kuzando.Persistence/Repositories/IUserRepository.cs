@@ -1,5 +1,5 @@
-﻿using Kuzando.Model.Entities.DB;
-using StackUnderflow.Persistence.Repositories;
+﻿using Kuzando.Common;
+using Kuzando.Model.Entities.DB;
 
 namespace Kuzando.Persistence.Repositories
 {
