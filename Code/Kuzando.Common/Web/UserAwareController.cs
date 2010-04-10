@@ -53,29 +53,29 @@ namespace Kuzando.Common.Web
             return _currentUser;
         }
 
-        protected ActionResult MultipleUserView<T>(IEnumerable<T> items)
-        {
-            return MultipleUserView(items.ToList());
-        }
-
-        protected ActionResult MultipleUserView<T>(T[] items)
-        {
-            return MultipleUserView(items.ToList());
-        }
-
-        protected ActionResult MultipleUserView<T>(IList<T> items)
-        {
-            return View(CreateMultipleModel(items));
-        }
-
-        protected ActionResult SingleUserView<T>(T item)
-        {
-            return View(CreateSingleModel(item));
-        }
-
-        protected ActionResult EmptyUserView()
-        {
-            return View(CreateEmptyModel());
-        }
+//        protected ActionResult MultipleUserView<T>(IEnumerable<T> items)
+//        {
+//            return MultipleUserView(items.ToList());
+//        }
+//
+//        protected ActionResult MultipleUserView<T>(T[] items)
+//        {
+//            return MultipleUserView(items.ToList());
+//        }
+//
+//        protected ActionResult MultipleUserView<T>(IList<T> items)
+//        {
+//            return View(CreateMultipleModel(items));
+//        }
+//
+//        protected ActionResult SingleUserView<T>(T item)
+//        {
+//            return View(CreateSingleModel(item));
+//        }
+//
+//        protected ActionResult EmptyUserView()
+//        {
+//            return View(CreateEmptyModel());
+//        }
     }
 }

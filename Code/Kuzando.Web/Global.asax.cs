@@ -1,6 +1,9 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Kuzando.Common.Web;
+using Kuzando.Core.Bootsrap;
+using Kuzando.Web.Controllers;
 
 namespace Kuzando.Web
 {
@@ -12,16 +15,23 @@ namespace Kuzando.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
+            routes.IgnoreRoute("{*css}", new { favicon = @"(.*/)?Site.css(/.*)?" });
 
             routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new {controller = "Home", action = "Index", id = ""} // Parameter defaults
-                );
+                "Default",                                              // Route name
+                "{controller}/{action}/{id}",                           // URL with parameters
+                new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
+            );
+
+
         }
 
         protected void Application_Start()
         {
+            var container = Bootstrapper.Instance.CreateContainer(typeof(HomeController).Assembly);
+            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(container));
+
             RegisterRoutes(RouteTable.Routes);
         }
     }
