@@ -40,11 +40,12 @@ namespace Kuzando.Util
 
             foreach (var user in _users)
             {
-                for (int i = 0; i < 5; ++i)
+                const int tasksPerUseres = 10;
+                for (int i = 0; i < tasksPerUseres; ++i)
                 {
                     var task = new Task
                                    {
-                                       Title = "Task number " + (i + 1),
+                                       Title = "Task number " + (i + 1) + " for user " + user.Id,
                                        Body =
                                            "This is an important task. One of many. In fact, I'm sure there will be many many more.",
                                        DueDate = _randomizer.RandomDate(),
@@ -63,12 +64,18 @@ namespace Kuzando.Util
         {
             Console.WriteLine("Adding users");
 
+            AddUser("chaoticdawn", "todo", "chaoticdawn@gmail.com"); 
+            AddUser("ripper234", "http://ripper234.com/", "ron.gross@gmail.com");
+        }
+
+        private void AddUser(string name, string openId, string email)
+        {
             var user = new User
                            {
-                               Name = "Aya Federman",
-                               OpenId = "asdf",
+                               Name = name,
+                               OpenId = openId,
                                SignupDate = DateTime.Now,
-                               Email = "chaoticdawn@gmail.com"
+                               Email = email
                            };
 
             _users.Add(user);

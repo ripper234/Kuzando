@@ -14,8 +14,8 @@ namespace Kuzando.Util
 
         public DateTime RandomDate()
         {
-            int daysBefore = 5;
-            int daysRange = 10;
+            int daysBefore = 10;
+            int daysRange = 13;
 
             int minutesInRange = daysRange * 24 * 60;
             int minutes = _random.Next(minutesInRange);

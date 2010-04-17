@@ -33,7 +33,7 @@ namespace Kuzando.Common.Web
             return new ItemsModel<T, User>(GetCurrentUser(), items);
         }
 
-        private ModelBase<User> CreateMultipleModel<T>(IEnumerable<T> items)
+        private ItemsModel<T, User> CreateMultipleModel<T>(IEnumerable<T> items)
         {
             return new ItemsModel<T, User>(GetCurrentUser(), items);
         }
@@ -55,26 +55,26 @@ namespace Kuzando.Common.Web
             return _currentUser;
         }
 
-//        protected ActionResult MultipleUserView<T>(IEnumerable<T> items)
-//        {
-//            return MultipleUserView(items.ToList());
-//        }
-//
-//        protected ActionResult MultipleUserView<T>(T[] items)
-//        {
-//            return MultipleUserView(items.ToList());
-//        }
-//
-//        protected ActionResult MultipleUserView<T>(IList<T> items)
-//        {
-//            return View(CreateMultipleModel(items));
-//        }
-//
-//        protected ActionResult SingleUserView<T>(T item)
-//        {
-//            return View(CreateSingleModel(item));
-//        }
-//
+        protected ActionResult MultipleUserView<T>(IEnumerable<T> items)
+        {
+            return MultipleUserView(items.ToList());
+        }
+
+        protected ActionResult MultipleUserView<T>(T[] items)
+        {
+            return MultipleUserView(items.ToList());
+        }
+
+        protected ActionResult MultipleUserView<T>(IList<T> items)
+        {
+            return View(CreateMultipleModel(items));
+        }
+
+        protected ActionResult SingleUserView<T>(T item)
+        {
+            return View(CreateSingleModel(item));
+        }
+
         protected ActionResult EmptyUserView()
         {
             return View(CreateEmptyModel());

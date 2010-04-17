@@ -1,5 +1,7 @@
 using System;
 using System.Web.Mvc;
+using Kuzando.Common.Web;
+using Kuzando.Model.Entities.DB;
 using Kuzando.Persistence.Repositories;
 
 namespace Kuzando.Web.Controllers
@@ -17,8 +19,8 @@ namespace Kuzando.Web.Controllers
         {
             var now = DateTime.Now;
             var range = DateRange.CreateWeekRange(now);
-            _taskRepository.GetByDueDateRange(range);
-            return View();
+            var tasks = _taskRepository.GetByDueDateRange(GetCurrentUser().Id, range);
+            return SingleUserView(new TasksForDateRange(range, tasks));
         }
     }
 }
