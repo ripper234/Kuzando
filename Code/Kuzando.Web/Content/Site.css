@@ -342,17 +342,27 @@ div#title
 {
     width: 6em;
 }
+.taskcell
+{
+	border-width:thin;
+	border-color:Black;
+	text-align:center;
+}
 td.taskcell
 {
-	height: 5em;
+	height: 110px;
+}
+th.taskcell
+{
+	height: 2em;
+	width: 160px;
 }
 .even
 {
-	background-color: #F8F8F8;
+	background-color: #F3F3F3;
 }
 .tasksgrid
 {
 	border-color:Black;
 	border-width:medium;
-	empty-cells:show;
 }

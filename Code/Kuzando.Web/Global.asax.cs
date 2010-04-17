@@ -23,6 +23,7 @@ namespace Kuzando.Web
         private static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            //routes.IgnoreRoute("{js}", new {"Scripts/Lib/.*");}
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
             routes.IgnoreRoute("{*css}", new { favicon = @"(.*/)?Site.css(/.*)?" });
 
