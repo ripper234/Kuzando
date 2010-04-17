@@ -31,7 +31,7 @@ namespace Kuzando.Web.Controllers
         /// <returns></returns>
         private ActionResult IndexLoggedIn(User user)
         {
-            throw new NotImplementedException();
+            return RedirectToAction("Show", "Tasks");
         }
 
         /// <summary>

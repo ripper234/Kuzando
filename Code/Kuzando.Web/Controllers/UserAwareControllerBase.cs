@@ -3,44 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Kuzando.Model.Entities.DB;
+using Kuzando.Persistence.Repositories;
 
 namespace Kuzando.Common.Web
 {
-    public abstract class UserAwareController<TUser> : Controller where TUser : class
+    public abstract class UserAwareControllerBase : Controller
     {
-        private TUser _currentUser;
-        public IRepository<TUser> Users { get; private set; }
+        private User _currentUser;
+        public IUserRepository Users { get; private set; }
 
-        protected UserAwareController(IRepository<TUser> userRepository)
+        protected UserAwareControllerBase(IUserRepository userRepository)
         {
             Users = userRepository;
         }
 
-        private ModelBase<TUser> CreateEmptyModel()
+        private ModelBase<User> CreateEmptyModel()
         {
-            return new EmptyModel<TUser>(GetCurrentUser());
+            return new EmptyModel<User>(GetCurrentUser());
         }
 
-        private ModelBase<TUser> CreateSingleModel<T>(T item)
+        private ModelBase<User> CreateSingleModel<T>(T item)
         {
-            return new ItemModel<T, TUser>(GetCurrentUser(), item);
+            return new ItemModel<T, User>(GetCurrentUser(), item);
         }
 
-        private ModelBase<TUser> CreateMultipleModel<T>(T[] items)
+        private ModelBase<User> CreateMultipleModel<T>(T[] items)
         {
-            return new ItemsModel<T, TUser>(GetCurrentUser(), items);
+            return new ItemsModel<T, User>(GetCurrentUser(), items);
         }
 
-        private ModelBase<TUser> CreateMultipleModel<T>(IEnumerable<T> items)
+        private ModelBase<User> CreateMultipleModel<T>(IEnumerable<T> items)
         {
-            return new ItemsModel<T, TUser>(GetCurrentUser(), items);
+            return new ItemsModel<T, User>(GetCurrentUser(), items);
         }
 
         /// <summary>
         /// Reads the current user from the database.
         /// </summary>
         /// <returns></returns>
-        protected TUser GetCurrentUser()
+        protected User GetCurrentUser()
         {
             if (_currentUser != null)
                 return _currentUser;
@@ -73,9 +75,9 @@ namespace Kuzando.Common.Web
 //            return View(CreateSingleModel(item));
 //        }
 //
-//        protected ActionResult EmptyUserView()
-//        {
-//            return View(CreateEmptyModel());
-//        }
+        protected ActionResult EmptyUserView()
+        {
+            return View(CreateEmptyModel());
+        }
     }
 }

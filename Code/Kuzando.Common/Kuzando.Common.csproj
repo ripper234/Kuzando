@@ -68,7 +68,6 @@
     <Compile Include="Web\ItemModel.cs" />
     <Compile Include="Web\ItemsModel.cs" />
     <Compile Include="Web\ModelBase.cs" />
-    <Compile Include="Web\UserAwareController.cs" />
     <Compile Include="Web\WindsorControllerFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
