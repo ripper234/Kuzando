@@ -6,7 +6,8 @@ namespace Kuzando.Web.Controllers
 {
     public abstract class KuzandoControllerBase : UserAwareController<User>
     {
-        protected KuzandoControllerBase(IRepository<User> userRepository) : base(userRepository)
+        protected KuzandoControllerBase(IRepository<User> userRepository)
+            : base(userRepository)
         {
         }
     }

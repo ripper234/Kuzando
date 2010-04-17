@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Web.Mvc;
-using Kuzando.Common;
 using Kuzando.Model.Entities.DB;
+using Kuzando.Persistence.Repositories;
 
 namespace Kuzando.Web.Controllers
 {
     [HandleError]
     public class HomeController : KuzandoControllerBase
     {
-        public HomeController(IRepository<User> userRepository) : base(userRepository)
+        public HomeController(IUserRepository userRepository)
+            : base(userRepository)
         {
         }
 
