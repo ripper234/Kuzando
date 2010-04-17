@@ -342,3 +342,17 @@ div#title
 {
     width: 6em;
 }
+td.taskcell
+{
+	height: 5em;
+}
+.even
+{
+	background-color: #F8F8F8;
+}
+.tasksgrid
+{
+	border-color:Black;
+	border-width:medium;
+	empty-cells:show;
+}

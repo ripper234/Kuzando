@@ -1,19 +1,42 @@
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<Kuzando.Common.Web.ItemModel<Kuzando.Persistence.Repositories.TasksForDateRange, Kuzando.Model.Entities.DB.User>>" %>
+<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Kuzando.Common.Web.ItemModel<Kuzando.Persistence.Repositories.TasksForDateRange, Kuzando.Model.Entities.DB.User>>" %>
+<%@ Import Namespace="MvcContrib.UI.Grid" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+	Recent Questions
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Your tasks></title>
-</head>
-<body>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <h1>Your tasks for <%= Html.Encode(Model.Item.Range.From.ToShortDateString()) %> - <%= Html.Encode(Model.Item.Range.To.ToShortDateString())%></h1>
-    <ul>
-    <% foreach (var item in Model.Item.Tasks)
-       {%>
-        <li><%= item.Title %></li>
-    <%
-       }%>
-       </ul>
-</body>
-</html>
+       <br />
+       
+       <%= Html.Grid(Model.Item.Tasks).Columns(column => {
+     		column.For(x => x.Id).Named("Person ID");
+     		column.For(x => x.Title);
+     		column.For(x => x.DueDate).Format("{0:d}");
+     	})
+        .Attributes(style => "width:100%")
+     	.Empty("There are no people.")
+     	.RowStart(row => "<tr foo='bar'>") %>
+     	
+     	<br />
+     	
+     	<table width="100%" class="tasksgrid">
+     	    <tr>
+     	        <% foreach (var day in Enum.GetValues(typeof(DayOfWeek))) {%>
+                 <th><%= day %></th>
+     	        <%
+                 }%>
+     	    </tr>
+     	    <% for (int row = 0; row < 3; ++row)
+             {%>
+     	    <%= "<tr" + ((row % 2 == 0) ? " class='even'" : "") + ">" %>
+     	    <%
+                 foreach (var day in Enum.GetValues(typeof (DayOfWeek)))
+                 {%>
+     	    <td class='taskcell' ></td>
+     	    <%}%>
+     	    </tr>
+     	    <%
+             }%>
+     	</table>
+</asp:Content>
