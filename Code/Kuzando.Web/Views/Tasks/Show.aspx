@@ -42,4 +42,9 @@
      	    <%
              }%>
      	</table>
+     	
+     	<form id="jsParams" action="">
+     	<%= Html.HiddenFor(x => x.Item.Range.From, new {id = "fromDate"})%>
+     	<%= Html.HiddenFor(x => x.Item.Range.To, new {id = "toDate"})%>
+     	</form>
 </asp:Content>

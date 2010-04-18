@@ -21,7 +21,7 @@ namespace Kuzando.Web.Controllers
                 return IndexNotLoggedIn();
             }
 
-            return IndexLoggedIn(user);
+            return IndexLoggedIn();
         }
 
         /// <summary>
@@ -29,9 +29,10 @@ namespace Kuzando.Web.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        private ActionResult IndexLoggedIn(User user)
+        private ActionResult IndexLoggedIn()
         {
-            return RedirectToAction("Show", "Tasks");
+            var dateRange = DateRange.CreateWeekRange(DateTime.Now);
+            return RedirectToAction("Show", "Tasks", new {from=dateRange.From, to=dateRange.To});
         }
 
         /// <summary>

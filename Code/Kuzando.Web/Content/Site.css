@@ -352,6 +352,18 @@ td.taskcell
 {
 	height: 110px;
 }
+td.withimg
+{
+	background-image: /Content/postit.png
+	position: relative;
+	z-index: 1;
+}
+td.taskcell p
+{
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+}
 th.taskcell
 {
 	height: 2em;
@@ -365,4 +377,8 @@ th.taskcell
 {
 	border-color:Black;
 	border-width:medium;
+}
+.hidden
+{
+	visibility:hidden;
 }

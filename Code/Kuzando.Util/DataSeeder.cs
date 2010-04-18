@@ -51,7 +51,8 @@ namespace Kuzando.Util
                                        DueDate = _randomizer.RandomDate(),
                                        CreationDate = _randomizer.RandomDate(),
                                        Importance = _randomizer.RandomEnum<Importance>(),
-                                       User = user
+                                       User = user,
+                                       PriorityInDay = _randomizer.RandomInt(4),
                                    };
                     _tasksRepository.Save(task);
                 }

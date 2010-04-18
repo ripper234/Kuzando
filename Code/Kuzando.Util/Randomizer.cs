@@ -27,5 +27,10 @@ namespace Kuzando.Util
             var values = (T[])Enum.GetValues(typeof(T));
             return values[_random.Next(values.Length)];
         }
+
+        public int RandomInt(int n)
+        {
+            return _random.Next(n);
+        }
     }
 }

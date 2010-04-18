@@ -1,7 +1,6 @@
 using System;
+using System.Linq;
 using System.Web.Mvc;
-using Kuzando.Common.Web;
-using Kuzando.Model.Entities.DB;
 using Kuzando.Persistence.Repositories;
 
 namespace Kuzando.Web.Controllers
@@ -15,12 +14,18 @@ namespace Kuzando.Web.Controllers
             _taskRepository = taskRepository;
         }
 
-        public ActionResult Show()
+        public ActionResult Show(DateTime from, DateTime to)
         {
-            var now = DateTime.Now;
-            var range = DateRange.CreateWeekRange(now);
+            var range = new DateRange(from, to);
             var tasks = _taskRepository.GetByDueDateRange(GetCurrentUser().Id, range);
             return SingleUserView(new TasksForDateRange(range, tasks));
+        }
+
+        public JsonResult Get(DateTime from, DateTime to)
+        {
+            var tasks = _taskRepository.GetByDueDateRange(GetCurrentUser().Id, new DateRange(from, to));
+            var serializableTasks = from task in tasks select new {task.Title, task.DueDate, task.PriorityInDay};
+            return Json(serializableTasks);
         }
     }
 }

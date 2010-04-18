@@ -28,8 +28,9 @@ CREATE TABLE `tasks` (
   `DueDate` datetime DEFAULT NULL,
   `IsDone` tinyint(1) NOT NULL,
   `Importance` tinyint(4) NOT NULL,
+  `PriorityInDay` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `users` */
 
@@ -42,7 +43,7 @@ CREATE TABLE `users` (
   `OpenId` varchar(100) NOT NULL,
   `Email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

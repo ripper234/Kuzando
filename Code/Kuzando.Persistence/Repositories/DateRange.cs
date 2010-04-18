@@ -13,6 +13,11 @@ namespace Kuzando.Persistence.Repositories
             To = to;
         }
 
+        public override string ToString()
+        {
+            return From + "-" + To;
+        }
+
         public static DateRange CreateWeekRange(DateTime now)
         {
             var lastSunday = DateTime.Now;
