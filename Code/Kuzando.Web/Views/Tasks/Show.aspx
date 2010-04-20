@@ -5,6 +5,7 @@
     <script type="text/javascript" src="/Scripts/GridRenderer.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/jquery-ui-1.8.custom.min.js"></script>
+    <script type="text/javascript" src="/Scripts/Lib/jquery.jeditable.mini.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -14,7 +15,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <h1>Your tasks for <%= Html.Encode(Model.Item.Range.From.ToShortDateString()) %> - <%= Html.Encode(Model.Item.Range.To.ToShortDateString())%></h1>
        <br />
-       <%= Html.Grid(Model.Item.Tasks).Columns(column => {
+       <%--<%= Html.Grid(Model.Item.Tasks).Columns(column => {
      		column.For(x => x.Id).Named("Person ID");
      		column.For(x => x.Title);
      		column.For(x => x.DueDate).Format("{0:d}");
@@ -23,7 +24,7 @@
      	.Empty("There are no people.")
      	.RowStart(row => "<tr foo='bar'>") %>
      	
-     	<br />
+     	<br />--%>
      	
      	<table width="100%" class="tasksgrid">
      	    <tr>

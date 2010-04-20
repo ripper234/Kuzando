@@ -22,7 +22,7 @@ function updateCards() {
             return true;
         });
 
-        $(".sticky").draggable({ revert: true , revertDuration:0});
+        $(".sticky").draggable({ revert: 'invalid' , revertDuration:200});
     }, "json");
 }
 
@@ -33,28 +33,52 @@ function findCell(task, fromDate) {
     var millisInDay = 1000 * 3600 * 24;
     column = Math.floor((dueDate - fromDate) / millisInDay);
     var cell = row.querySelectorAll('td')[column];
-    cell.innerHTML = '<div class="sticky" id="' + task["Id"] + '"><div class="text">' + task["Title"] + '</div></div>';
+    var taskId = task["Id"];
+    cell.innerHTML = '<div class="sticky" id="' + taskId + '"><div class="edit" id="' + taskId + '">' + task["Title"] + '</div></div>';
 }
 
 $(document).ready(function() {
     $(".taskcell").droppable({
         drop: function(event, ui) {
             try {
-                var taskId = getTaskId(event.originalTarget);
+                var originalTarget = event.originalTarget;
+
+                // an ugly hack - this happened some times
+                if (originalTarget.className == 'edit')
+                    originalTarget = originalTarget.parentNode;
+
+                //                alert("Dropped " + originalTarget.innerHTML + " into " + event.target);
+                var taskId = getTaskId(originalTarget);
                 var newDate = findNewDate(event.target);
                 var newPriorityInDay = findPriorityInDay(event.target);
                 var dateStr = dateToString(newDate);
 
                 $.post("/Tasks/UpdateTask", { taskId: taskId, newDate: dateStr, newPriorityInDay: newPriorityInDay }, function(data) {
-                }, "json");
-                $(event.originalTarget).removeClass('ui-dragable-dragging');
-                $(event.target).append(event.originalTarget);
+            }, "json");
+
+            $(originalTarget).removeClass('ui-dragable-dragging');
+            $(originalTarget).attr('style', 'position:relative');
+            $(event.target).append(originalTarget);
             }
             catch (e) {
                 alert(e);
             }
         }
     });
+
+    $(".edit").editable("http://www.appelsiini.net/projects/jeditable/php/save.php", {
+        indicator: "<img src='img/indicator.gif'>",
+        type: 'textarea',
+        submitdata: { _method: "put" },
+        select: true,
+        submit: 'OK',
+        cancel: 'cancel',
+        cssclass: "editable"
+    });
+//    $('.edit').editable('http://www.example.com/save.php', {
+//         indicator : 'Saving...',
+//         tooltip   : 'Click to edit...'
+//     });
 });
 
 //Get the 'task ID' from the task DOM
