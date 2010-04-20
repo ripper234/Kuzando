@@ -352,11 +352,19 @@ td.taskcell
 {
 	height: 110px;
 }
-td.withimg
+.sticky
 {
-	background-image: /Content/postit.png
-	position: relative;
-	z-index: 1;
+	background-color: #F7F085;
+	margin: 5px;
+	height: 100px;
+	width: 150px;
+	text-align:center;
+	vertical-align:text-bottom;
+}
+.sticky .text
+{
+	display:inline;
+	vertical-align:middle;
 }
 td.taskcell p
 {

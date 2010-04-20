@@ -117,6 +117,8 @@
     <Content Include="Scripts\Lib\jquery-1.4.1.js" />
     <Content Include="Scripts\Lib\jquery-1.4.1.min-vsdoc.js" />
     <Content Include="Scripts\Lib\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\Lib\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.8.custom.min.js" />
     <Content Include="Scripts\Lib\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\Lib\jquery.validate.js" />
     <Content Include="Scripts\Lib\jquery.validate.min-vsdoc.js" />

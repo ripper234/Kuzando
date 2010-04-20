@@ -29,5 +29,15 @@ namespace Kuzando.Persistence.Repositories
                 Restrictions.Eq("User.Id", userId),
                 Restrictions.Between("DueDate", range.From, range.To)));
         }
+
+        public void UpdateDate(int userId, int taskId, DateTime newDate)
+        {
+            var task = GetById(taskId);
+            if (task.User.Id != userId)
+                throw new Exception("Task " + taskId + " does not belong to user " + userId);
+
+            task.DueDate = newDate;
+            Update(task);
+        }
     }
 }

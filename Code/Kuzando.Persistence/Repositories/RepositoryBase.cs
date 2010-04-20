@@ -34,6 +34,14 @@ namespace Kuzando.Persistence.Repositories
             ActiveRecordMediator<T>.Save(entity);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="entity"></param>
+        public virtual void Update(T entity)
+        {
+            ActiveRecordMediator<T>.Update(entity);
+        }
+
         protected static void BuildInClause(StringBuilder builder, IEnumerable<int> ids)
         {
             if (ids.Count() == 0)

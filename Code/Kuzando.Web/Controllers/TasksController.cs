@@ -24,8 +24,15 @@ namespace Kuzando.Web.Controllers
         public JsonResult Get(DateTime from, DateTime to)
         {
             var tasks = _taskRepository.GetByDueDateRange(GetCurrentUser().Id, new DateRange(from, to));
-            var serializableTasks = from task in tasks select new {task.Title, task.DueDate, task.PriorityInDay};
+            var serializableTasks = from task in tasks select new {task.Title, task.DueDate, task.PriorityInDay, task.Id};
             return Json(serializableTasks);
+        }
+
+        [HttpPost]
+        public void UpdateDueDate(int taskId, DateTime newDate)
+        {
+            var user = GetCurrentUser();
+            _taskRepository.UpdateDate(user.Id, taskId, newDate);
         }
     }
 }
