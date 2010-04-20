@@ -29,10 +29,10 @@ namespace Kuzando.Web.Controllers
         }
 
         [HttpPost]
-        public void UpdateDueDate(int taskId, DateTime newDate)
+        public void UpdateTask(int taskId, DateTime newDate, int newPriorityInDay)
         {
             var user = GetCurrentUser();
-            _taskRepository.UpdateDate(user.Id, taskId, newDate);
+            _taskRepository.UpdateTask(user.Id, taskId, newDate, newPriorityInDay);
         }
     }
 }

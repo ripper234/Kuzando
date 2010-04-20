@@ -8,6 +8,6 @@ namespace Kuzando.Persistence.Repositories
     public interface ITaskRepository : IRepository<Task>
     {
         Task[] GetByDueDateRange(int userId, DateRange range);
-        void UpdateDate(int userId, int taskId, DateTime newDate);
+        void UpdateTask(int userId, int taskId, DateTime newDate, int priorityInDay);
     }
 }

@@ -42,12 +42,13 @@ $(document).ready(function() {
             try {
                 var taskId = getTaskId(event.originalTarget);
                 var newDate = findNewDate(event.target);
+                var newPriorityInDay = findPriorityInDay(event.target);
                 var dateStr = dateToString(newDate);
-                
-                $.post("/Tasks/UpdateDueDate", { taskId: taskId, newDate: dateStr }, function(data) {
+
+                $.post("/Tasks/UpdateTask", { taskId: taskId, newDate: dateStr, newPriorityInDay: newPriorityInDay }, function(data) {
                 }, "json");
-            $(event.originalTarget).removeClass('ui-dragable-dragging');
-            $(event.target).append(event.originalTarget);
+                $(event.originalTarget).removeClass('ui-dragable-dragging');
+                $(event.target).append(event.originalTarget);
             }
             catch (e) {
                 alert(e);
@@ -63,19 +64,26 @@ function getTaskId(task) {
 
 function findNewDate(newCell) {
     var fromDate = getFromDate();
-    var col = 0;
-    $(newCell.parentNode).children().each(function() {
-        if (this == newCell) {
-            return false;
-        }
-        col++;
-    });
-    if (col >= newCell.parentNode.childElementCount)
+    var col = jQuery.inArray(newCell, newCell.parentNode.children);
+//    
+//    var col = 0;
+//    $(newCell.parentNode).children().each(function() {
+//        if (this == newCell) {
+//            return false;
+//        }
+//        col++;
+//    });
+    if (col < 0)
         throw "Can't find cell";
 
     var newDate = new Date();
     newDate.setDate(fromDate.getDate() + col);
     return newDate;
+}
+
+function findPriorityInDay(newCell) {
+    var row = newCell.parentNode;
+    return jQuery.inArray(row, row.parentNode.children) - 1;
 }
 
 function dateToString(date) {
