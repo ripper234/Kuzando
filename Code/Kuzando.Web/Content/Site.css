@@ -352,19 +352,29 @@ td.taskcell
 {
 	height: 110px;
 }
+button
+{
+	z-index:2;
+	position:relative;
+}
 .sticky
 {
+	z-index:1;
 	background-color: #F7F085;
 	margin: 5px;
 	height: 100px;
 	width: 150px;
 	text-align:center;
 	vertical-align:text-bottom;
+	position:relative;
 }
-.sticky .text
+.sticky .edit
 {
-	display:inline;
+	z-index:1;
 	vertical-align:middle;
+	height: 100px;
+	width: 150px;
+	position:relative;
 }
 td.taskcell p
 {

@@ -40,6 +40,7 @@ namespace Kuzando.Web.Controllers
                     var openId = Request.Form["openId"];
                     relayingParty.CreateRequest(openId).RedirectToProvider();
 
+                    // todo - http://stackoverflow.com/questions/2724455/iauthenticationrequest-redirecttoprovider-is-not-supposed-to-return-yet-it-does
                     throw new Exception("Never gets here");
                 }
 

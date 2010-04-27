@@ -45,7 +45,7 @@ namespace Kuzando.Tests.Persistence
         {
             return new Task
                        {
-                           Title = "Some task",
+                           Text = "Some task",
                            CreationDate = DateTime.Now,
                            DueDate = dueDate,
                            User = _user,

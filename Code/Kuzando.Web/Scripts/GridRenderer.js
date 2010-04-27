@@ -14,12 +14,56 @@ function updateCards() {
         var tasksAssignedToDay
         data.every(function(task) {
             var cell = findCell(task, fromDate);
-            
+
             return true;
         });
 
-        // TODO 
-        $(".sticky").draggable({ revert: 'invalid' , revertDuration:200});
+        $(".sticky").draggable({ revert: 'invalid', revertDuration: 200 });
+
+        $(".taskcell").droppable({
+            drop: function(event, ui) {
+                try {
+                    var draggable = ui.draggable[0];
+                    var droppable = $(this)[0];
+
+                    // an ugly hack - this happened some times
+                    if (draggable.className == 'edit')
+                        draggable = draggable.parentNode;
+
+                    var taskId = getTaskId(draggable);
+                    var newDate = findNewDate(droppable);
+                    var newPriorityInDay = findPriorityInDay(droppable);
+                    var dateStr = dateToString(newDate);
+
+                    $.post("/Tasks/UpdateTaskDatePriority", { taskId: taskId, newDate: dateStr, newPriorityInDay: newPriorityInDay }, 
+                        function(data) {}, "json");
+
+                    $(draggable).removeClass('ui-dragable-dragging');
+                    $(draggable).attr('style', 'position:relative');
+                    //$(droppable).append(draggable);
+                    $(droppable).append(draggable);
+                }
+                catch (e) {
+                    alert(e);
+                }
+            }
+        });
+
+        $(".edit").editable(function(value, settings) {
+            var task = this.parentNode;
+            var taskId = getTaskId(task);
+            
+            $.post("/Tasks/UpdateTaskText", { taskId: taskId, newText: value},
+                function(data) { }, "json");
+                
+            return value;
+        }, {
+            indicator: 'Saving...',
+            tooltip: 'Click to edit',
+            type: 'textarea',
+            submit: 'Save',
+            cancel: 'Cancel'
+        });
     }, "json");
 }
 
@@ -31,60 +75,11 @@ function findCell(task, fromDate) {
     column = Math.floor((dueDate - fromDate) / millisInDay);
     var cell = row.querySelectorAll('td')[column];
     var taskId = task["Id"];
-    cell.innerHTML = '<div class="sticky" id="note' + taskId + '"><div class="edit" id="text' + taskId + '">' + task["Title"] + '</div></div>';
+    cell.innerHTML = '<div class="sticky" id="note' + taskId + '"><div class="edit" id="text' + taskId + '">' + task["Text"] + '</div></div>';
 }
 
 $(document).ready(function() {
     updateCards();
-
-    $(".taskcell").droppable({
-        drop: function(event, ui) {
-            try {
-                var draggable = ui.draggable[0];
-                var droppable = $(this)[0];
-                
-                // an ugly hack - this happened some times
-                if (draggable.className == 'edit')
-                    draggable = draggable.parentNode;
-
-                var taskId = getTaskId(draggable);
-                var newDate = findNewDate(droppable);
-                var newPriorityInDay = findPriorityInDay(droppable);
-                var dateStr = dateToString(newDate);
-
-                $.post("/Tasks/UpdateTask", { taskId: taskId, newDate: dateStr, newPriorityInDay: newPriorityInDay }, function(data) {
-                }, "json");
-
-                $(draggable).removeClass('ui-dragable-dragging');
-                $(draggable).attr('style', 'position:relative');
-                //$(droppable).append(draggable);
-                $(droppable).append(draggable);
-            }
-            catch (e) {
-                alert(e);
-            }
-        }
-    });
-
-    $(".edit").each(function(index) {
-        alert(index + " - " + $(this).text());
-    });
-    $(".edit").dblclick(function() {
-        alert("Clicked");
-    });
-    //    $(".edit").editable("http://www.appelsiini.net/projects/jeditable/php/save.php", {
-    //        indicator: "<img src='img/indicator.gif'>",
-    //        type: 'textarea',
-    //        submitdata: { _method: "put" },
-    //        select: true,
-    //        submit: 'OK',
-    //        cancel: 'cancel',
-    //        cssclass: "editable"
-    //    });
-    //    $('.edit').editable('http://www.example.com/save.php', {
-    //         indicator : 'Saving...',
-    //         tooltip   : 'Click to edit...'
-    //     });
 });
 
 //Get the 'task ID' from the task DOM

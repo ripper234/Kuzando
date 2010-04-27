@@ -15,8 +15,8 @@ namespace Kuzando.Persistence.Repositories
 
         public override void Save(Task task)
         {
-            if (task.Body == null)
-                task.Body = "";
+            if (task.Text == null)
+                task.Text = "";
 
             base.Save(task);
         }
@@ -30,14 +30,30 @@ namespace Kuzando.Persistence.Repositories
                 Restrictions.Between("DueDate", range.From, range.To)));
         }
 
-        public void UpdateTask(int userId, int taskId, DateTime newDate, int newPriorityInDay)
+        private Task GetTaskWithUserId(int userId, int taskId)
         {
             var task = GetById(taskId);
             if (task.User.Id != userId)
                 throw new Exception("Task " + taskId + " does not belong to user " + userId);
 
+            return task;
+        }
+
+        public void UpdateTaskDatePriority(int userId, int taskId, DateTime newDate, int newPriorityInDay)
+        {
+            var task = GetTaskWithUserId(userId, taskId);
+
             task.PriorityInDay = newPriorityInDay;
             task.DueDate = newDate;
+
+            Update(task);
+        }
+
+        public void UpdateTaskText(int userId, int taskId, string newText)
+        {
+            var task = GetTaskWithUserId(userId, taskId);
+
+            task.Text = newText;
 
             Update(task);
         }

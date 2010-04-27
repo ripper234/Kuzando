@@ -13,10 +13,7 @@ namespace Kuzando.Model.Entities.DB
         public virtual User User { get; set; }
 
         [Property]
-        public virtual string Title { get; set; }
-
-        [Property]
-        public virtual string Body { get; set; }
+        public virtual string Text { get; set; }
 
         [Property]
         public DateTime CreationDate { get; set; }

@@ -45,9 +45,7 @@ namespace Kuzando.Util
                 {
                     var task = new Task
                                    {
-                                       Title = "Task number " + (i + 1) + " for user " + user.Id,
-                                       Body =
-                                           "This is an important task. One of many. In fact, I'm sure there will be many many more.",
+                                       Text = "Task number " + (i + 1) + " for user " + user.Id,
                                        DueDate = _randomizer.RandomDate(),
                                        CreationDate = _randomizer.RandomDate(),
                                        Importance = _randomizer.RandomEnum<Importance>(),
