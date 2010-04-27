@@ -13,7 +13,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<h1>Your tasks for <%= Html.Encode(Model.Item.Range.From.ToShortDateString()) %> - <%= Html.Encode(Model.Item.Range.To.ToShortDateString())%></h1>
+<h1 class="edit">Your tasks for <%= Html.Encode(Model.Item.Range.From.ToShortDateString()) %> - <%= Html.Encode(Model.Item.Range.To.ToShortDateString())%></h1>
        <br />
        <%--<%= Html.Grid(Model.Item.Tasks).Columns(column => {
      		column.For(x => x.Id).Named("Person ID");

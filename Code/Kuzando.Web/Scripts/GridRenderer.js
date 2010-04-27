@@ -1,8 +1,4 @@
-﻿$(document).ready(function() {
-    updateCards();
-});
-
-function getFromDateStr() {
+﻿function getFromDateStr() {
     return $('form > input#fromDate')[0]["value"];
 }
 function getFromDate() {
@@ -22,6 +18,7 @@ function updateCards() {
             return true;
         });
 
+        // TODO 
         $(".sticky").draggable({ revert: 'invalid' , revertDuration:200});
     }, "json");
 }
@@ -34,31 +31,34 @@ function findCell(task, fromDate) {
     column = Math.floor((dueDate - fromDate) / millisInDay);
     var cell = row.querySelectorAll('td')[column];
     var taskId = task["Id"];
-    cell.innerHTML = '<div class="sticky" id="' + taskId + '"><div class="edit" id="' + taskId + '">' + task["Title"] + '</div></div>';
+    cell.innerHTML = '<div class="sticky" id="note' + taskId + '"><div class="edit" id="text' + taskId + '">' + task["Title"] + '</div></div>';
 }
 
 $(document).ready(function() {
+    updateCards();
+
     $(".taskcell").droppable({
         drop: function(event, ui) {
             try {
-                var originalTarget = event.originalTarget;
-
+                var draggable = ui.draggable[0];
+                var droppable = $(this)[0];
+                
                 // an ugly hack - this happened some times
-                if (originalTarget.className == 'edit')
-                    originalTarget = originalTarget.parentNode;
+                if (draggable.className == 'edit')
+                    draggable = draggable.parentNode;
 
-                //                alert("Dropped " + originalTarget.innerHTML + " into " + event.target);
-                var taskId = getTaskId(originalTarget);
-                var newDate = findNewDate(event.target);
-                var newPriorityInDay = findPriorityInDay(event.target);
+                var taskId = getTaskId(draggable);
+                var newDate = findNewDate(droppable);
+                var newPriorityInDay = findPriorityInDay(droppable);
                 var dateStr = dateToString(newDate);
 
                 $.post("/Tasks/UpdateTask", { taskId: taskId, newDate: dateStr, newPriorityInDay: newPriorityInDay }, function(data) {
-            }, "json");
+                }, "json");
 
-            $(originalTarget).removeClass('ui-dragable-dragging');
-            $(originalTarget).attr('style', 'position:relative');
-            $(event.target).append(originalTarget);
+                $(draggable).removeClass('ui-dragable-dragging');
+                $(draggable).attr('style', 'position:relative');
+                //$(droppable).append(draggable);
+                $(droppable).append(draggable);
             }
             catch (e) {
                 alert(e);
@@ -66,24 +66,33 @@ $(document).ready(function() {
         }
     });
 
-    $(".edit").editable("http://www.appelsiini.net/projects/jeditable/php/save.php", {
-        indicator: "<img src='img/indicator.gif'>",
-        type: 'textarea',
-        submitdata: { _method: "put" },
-        select: true,
-        submit: 'OK',
-        cancel: 'cancel',
-        cssclass: "editable"
+    $(".edit").each(function(index) {
+        alert(index + " - " + $(this).text());
     });
-//    $('.edit').editable('http://www.example.com/save.php', {
-//         indicator : 'Saving...',
-//         tooltip   : 'Click to edit...'
-//     });
+    $(".edit").dblclick(function() {
+        alert("Clicked");
+    });
+    //    $(".edit").editable("http://www.appelsiini.net/projects/jeditable/php/save.php", {
+    //        indicator: "<img src='img/indicator.gif'>",
+    //        type: 'textarea',
+    //        submitdata: { _method: "put" },
+    //        select: true,
+    //        submit: 'OK',
+    //        cancel: 'cancel',
+    //        cssclass: "editable"
+    //    });
+    //    $('.edit').editable('http://www.example.com/save.php', {
+    //         indicator : 'Saving...',
+    //         tooltip   : 'Click to edit...'
+    //     });
 });
 
 //Get the 'task ID' from the task DOM
 function getTaskId(task) {
-    return task.id;
+    // eg 'note18'
+    var regex = /note(\d+)/;
+    var match = regex.exec(task.id);
+    return match[1];
 }
 
 function findNewDate(newCell) {

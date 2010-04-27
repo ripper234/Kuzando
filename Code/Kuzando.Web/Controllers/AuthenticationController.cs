@@ -82,10 +82,16 @@ namespace Kuzando.Web.Controllers
             }
         }
 
-        private static ActionResult RedirectFromLoginPage(User user)
+        private ActionResult RedirectFromLoginPage(User user)
         {
-            FormsAuthentication.RedirectFromLoginPage(user.Id.ToString(), false);
-            return new EmptyResult();
+            if (Request.QueryString["ReturnURL"] != "")
+            {
+                FormsAuthentication.RedirectFromLoginPage(user.Id.ToString(), false);
+                return new EmptyResult();
+            }
+            
+            FormsAuthentication.SetAuthCookie(user.Id.ToString(), false); //not set cookie  
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Logout()

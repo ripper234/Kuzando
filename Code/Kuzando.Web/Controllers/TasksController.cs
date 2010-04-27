@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Kuzando.Model.Entities.DB;
 using Kuzando.Persistence.Repositories;
 
 namespace Kuzando.Web.Controllers
@@ -17,13 +18,21 @@ namespace Kuzando.Web.Controllers
         public ActionResult Show(DateTime from, DateTime to)
         {
             var range = new DateRange(from, to);
-            var tasks = _taskRepository.GetByDueDateRange(GetCurrentUser().Id, range);
+            var currentUser = GetCurrentUser();
+            if (currentUser == null)
+                return RedirectToAction("Login", "Authentication");
+
+            var tasks = _taskRepository.GetByDueDateRange(currentUser.Id, range);
             return SingleUserView(new TasksForDateRange(range, tasks));
         }
 
-        public JsonResult Get(DateTime from, DateTime to)
+        public ActionResult Get(DateTime from, DateTime to)
         {
-            var tasks = _taskRepository.GetByDueDateRange(GetCurrentUser().Id, new DateRange(from, to));
+            var currentUser = GetCurrentUser();
+            if (currentUser == null)
+                return RedirectToAction("Login", "Authentication");
+
+            var tasks = _taskRepository.GetByDueDateRange(currentUser.Id, new DateRange(from, to));
             var serializableTasks = from task in tasks select new {task.Title, task.DueDate, task.PriorityInDay, task.Id};
             return Json(serializableTasks);
         }
@@ -32,6 +41,9 @@ namespace Kuzando.Web.Controllers
         public void UpdateTask(int taskId, DateTime newDate, int newPriorityInDay)
         {
             var user = GetCurrentUser();
+            if (user == null)
+                throw new Exception("Must be signed in to update task");
+
             _taskRepository.UpdateTask(user.Id, taskId, newDate, newPriorityInDay);
         }
     }
