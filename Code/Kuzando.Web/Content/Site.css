@@ -354,12 +354,11 @@ td.taskcell
 }
 button
 {
-	z-index:2;
+	z-index:1;
 	position:relative;
 }
 .sticky
 {
-	z-index:1;
 	background-color: #F7F085;
 	margin: 5px;
 	height: 100px;
@@ -370,7 +369,6 @@ button
 }
 .sticky .edit
 {
-	z-index:1;
 	vertical-align:middle;
 	height: 100px;
 	width: 150px;

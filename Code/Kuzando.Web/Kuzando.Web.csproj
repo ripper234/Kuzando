@@ -130,6 +130,7 @@
     <Content Include="Scripts\Lib\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\Lib\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\Lib\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\Lib\showdown.js" />
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\Tasks\Show.aspx" />
     <Content Include="Web.config" />

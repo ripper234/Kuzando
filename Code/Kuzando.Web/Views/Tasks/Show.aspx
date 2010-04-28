@@ -6,10 +6,11 @@
     <script type="text/javascript" src="/Scripts/Lib/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/jquery-ui-1.8.custom.min.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/jquery.jeditable.mini.js"></script>
+    <script type="text/javascript" src="/Scripts/Lib/showdown.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Recent Questions
+	Kuzando - Tasks Made Easy
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
