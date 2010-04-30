@@ -112,7 +112,9 @@
     <Content Include="castle.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\trashbin.png" />
+    <Content Include="Content\Images\new_sticky.png" />
+    <Content Include="Content\Images\sticky.png" />
+    <Content Include="Content\Images\trashbin.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\GridRenderer.js" />
     <Content Include="Scripts\Lib\jquery-1.4.1-vsdoc.js" />

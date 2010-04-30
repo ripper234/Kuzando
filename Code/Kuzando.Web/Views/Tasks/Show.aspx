@@ -16,7 +16,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <div>
     <h1 class="edit">Your tasks for <%= Html.Encode(Model.Item.Range.From.ToShortDateString()) %> - <%= Html.Encode(Model.Item.Range.To.ToShortDateString())%>
-    <img src="/Content/trashbin.png" width="60" height="60" alt="Trash It" id="trash"/>
+    <span id="action-icons">
+        <img src="/Content/images/new_sticky.png" width="64" height="64" title="Create a new sticky" alt="" id="newsticky"/>
+        <img src="/Content/images/trashbin.png" width="60" height="60" title="Trash it" alt="" id="trash"/>
+    </span>
     </h1>
 </div>
        <br />

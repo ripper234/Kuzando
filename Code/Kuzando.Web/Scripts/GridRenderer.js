@@ -28,6 +28,11 @@ function updateCards() {
                     if (draggable.className == 'edit')
                         draggable = draggable.parentNode;
 
+                    if (draggable.id == 'newsticky') {
+                        createNewTaskInCell(droppable);
+                        return;
+                    }
+
                     var taskId = getTaskId(draggable);
                     var dateStr = findDate(droppable);
                     var newPriorityInDay = findPriorityInDay(droppable);
@@ -51,14 +56,18 @@ function updateCards() {
                 return;
 
             // create new task
-            var priority = findPriorityInDay(this);
-            var dueDate = findDate(this);
-
-            $.post("/Tasks/CreateNewTask", { priority: priority, dueDate: dueDate }, function(task) {
-                newSticky = createCardFromTask(task);
-                newSticky.children(".edit").click();
-            }, "json");
+            createNewTaskInCell(this);
         });
+    }, "json");
+}
+
+function createNewTaskInCell(cell) {
+    var priority = findPriorityInDay(cell);
+    var dueDate = findDate(cell);
+
+    $.post("/Tasks/CreateNewTask", { priority: priority, dueDate: dueDate }, function(task) {
+        newSticky = createCardFromTask(task);
+        newSticky.children(".edit").click();
     }, "json");
 }
 
@@ -94,7 +103,10 @@ function createCardFromTask(task) {
         submit: 'Save',
         cancel: 'Cancel'
     });
-    newSticky.draggable({ revert: 'invalid', revertDuration: 200 });
+    newSticky.draggable({   revert: 'invalid', 
+                            revertDuration: 200,
+                            scroll: false
+                        });
 
     $(cell).append(newSticky);
     return newSticky;
@@ -102,6 +114,10 @@ function createCardFromTask(task) {
 
 $(document).ready(function() {
     updateCards();
+    doActionIcons();
+});
+
+function doActionIcons() {
     $('#trash').droppable({
         drop: function(event, ui) {
             try {
@@ -111,6 +127,10 @@ $(document).ready(function() {
                 // todo
                 if (draggable.className == 'edit')
                     draggable = draggable.parentNode;
+
+                if (!$(draggable).hasClass('sticky')) {
+                    return;
+                }
 
                 var taskId = getTaskId(draggable);
 
@@ -124,7 +144,19 @@ $(document).ready(function() {
             }
         }
     });
-});
+
+    $('#newsticky').draggable({
+        revert: 'invalid',
+        revertDuration: 200,
+        cursor: 'move',
+        cursorAt: { top: 40, left: 40 },
+        helper: function(event) {
+            return $('<img src="/Content/Images/sticky.png" alt="" width="64" height="64"/>');
+        },
+        //containment: '#main',
+        scroll: false
+    });
+}
 
 //Get the 'task ID' from the task DOM
 function getTaskId(task) {

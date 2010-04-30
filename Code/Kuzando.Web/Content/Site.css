@@ -398,9 +398,13 @@ th.taskcell
 {
 	visibility:hidden;
 }
-#trash
+#action-icons
 {
 	float:right;
+}
+#action-icons img
+{
 	position:relative;
 	top:-30px;
+	padding-left:20px;
 }
