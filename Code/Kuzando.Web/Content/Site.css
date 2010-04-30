@@ -398,3 +398,9 @@ th.taskcell
 {
 	visibility:hidden;
 }
+#trash
+{
+	float:right;
+	position:relative;
+	top:-30px;
+}

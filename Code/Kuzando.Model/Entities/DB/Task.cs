@@ -29,5 +29,8 @@ namespace Kuzando.Model.Entities.DB
 
         [Property]
         public int PriorityInDay { get; set; }
+
+        [Property]
+        public bool Deleted {get; set;}
     }
 }

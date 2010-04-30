@@ -26,8 +26,10 @@ namespace Kuzando.Persistence.Repositories
             // todo - http://stackoverflow.com/questions/2657955/selecting-by-id-in-castle-activerecord
             return ActiveRecordMediator<Task>.FindAll(
                 Restrictions.And(
-                Restrictions.Eq("User.Id", userId),
-                Restrictions.Between("DueDate", range.From, range.To)));
+                    Restrictions.And(
+                        Restrictions.Eq("User.Id", userId),
+                        Restrictions.Eq("Deleted", false)),
+                    Restrictions.Between("DueDate", range.From, range.To)));
         }
 
         private Task GetTaskWithUserId(int userId, int taskId)
@@ -54,6 +56,15 @@ namespace Kuzando.Persistence.Repositories
             var task = GetTaskWithUserId(userId, taskId);
 
             task.Text = newText;
+
+            Update(task);
+        }
+
+        public void Delete(int userId, int taskId)
+        {
+            var task = GetTaskWithUserId(userId, taskId);
+
+            task.Deleted = true;
 
             Update(task);
         }

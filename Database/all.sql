@@ -22,15 +22,15 @@ DROP TABLE IF EXISTS `tasks`;
 CREATE TABLE `tasks` (
   `Id` int(4) unsigned NOT NULL AUTO_INCREMENT,
   `UserId` int(4) unsigned NOT NULL,
-  `Title` varchar(100) NOT NULL,
-  `Body` varchar(5000) NOT NULL,
+  `Text` varchar(5000) NOT NULL,
   `CreationDate` datetime NOT NULL,
   `DueDate` datetime DEFAULT NULL,
   `IsDone` tinyint(1) NOT NULL,
   `Importance` tinyint(4) NOT NULL,
   `PriorityInDay` tinyint(3) unsigned NOT NULL,
+  `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `users` */
 

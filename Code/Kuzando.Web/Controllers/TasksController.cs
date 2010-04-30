@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Kuzando.Model.Entities.DB;
 using Kuzando.Persistence.Repositories;
+using Kuzando.Web.Dtos;
 
 namespace Kuzando.Web.Controllers
 {
@@ -60,6 +61,16 @@ namespace Kuzando.Web.Controllers
         }
 
         [HttpPost]
+        public void Delete(int taskId)
+        {
+            var user = GetCurrentUser();
+            if (user == null)
+                throw new Exception("Must be signed in to update task");
+
+            _taskRepository.Delete(user.Id, taskId);
+        }
+
+        [HttpPost]
         public JsonResult CreateNewTask(int priority, DateTime dueDate)
         {
             var user = GetCurrentUser();
@@ -76,22 +87,6 @@ namespace Kuzando.Web.Controllers
 
             _taskRepository.Save(task);
             return Json(new TaskDto(task));
-        }
-    }
-
-    public class TaskDto
-    {
-        public string Text { get; private set; }
-        public DateTime DueDate { get; private set; }
-        public int PriorityInDay { get; private set; }
-        public int Id { get; private set; }
-
-        public TaskDto(Task task)
-        {
-            Text = task.Text;
-            DueDate = task.DueDate;
-            PriorityInDay = task.PriorityInDay;
-            Id = task.Id;
         }
     }
 }

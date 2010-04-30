@@ -14,7 +14,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<h1 class="edit">Your tasks for <%= Html.Encode(Model.Item.Range.From.ToShortDateString()) %> - <%= Html.Encode(Model.Item.Range.To.ToShortDateString())%></h1>
+<div>
+    <h1 class="edit">Your tasks for <%= Html.Encode(Model.Item.Range.From.ToShortDateString()) %> - <%= Html.Encode(Model.Item.Range.To.ToShortDateString())%>
+    <img src="/Content/trashbin.png" width="60" height="60" alt="Trash It" id="trash"/>
+    </h1>
+</div>
        <br />
        <%--<%= Html.Grid(Model.Item.Tasks).Columns(column => {
      		column.For(x => x.Id).Named("Person ID");

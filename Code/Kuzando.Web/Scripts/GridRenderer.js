@@ -24,6 +24,7 @@ function updateCards() {
                     var droppable = $(this)[0];
 
                     // an ugly hack - this happened some times
+                    // todo
                     if (draggable.className == 'edit')
                         draggable = draggable.parentNode;
 
@@ -37,7 +38,6 @@ function updateCards() {
 
                     $(draggable).removeClass('ui-dragable-dragging');
                     $(draggable).attr('style', 'position:relative');
-                    //$(droppable).append(draggable);
                     $(droppable).append(draggable);
                 }
                 catch (e) {
@@ -102,6 +102,28 @@ function createCardFromTask(task) {
 
 $(document).ready(function() {
     updateCards();
+    $('#trash').droppable({
+        drop: function(event, ui) {
+            try {
+                var draggable = ui.draggable[0];
+
+                // an ugly hack - this happened some times
+                // todo
+                if (draggable.className == 'edit')
+                    draggable = draggable.parentNode;
+
+                var taskId = getTaskId(draggable);
+
+                $.post("/Tasks/Delete", { taskId: taskId },
+                        function(data) { }, "json");
+
+                $(draggable).remove();
+            }
+            catch (e) {
+                alert(e);
+            }
+        }
+    });
 });
 
 //Get the 'task ID' from the task DOM
@@ -115,14 +137,6 @@ function getTaskId(task) {
 function findDate(cell) {
     var fromDate = getFromDate();
     var col = jQuery.inArray(cell, cell.parentNode.children);
-//    
-//    var col = 0;
-//    $(cell.parentNode).children().each(function() {
-//        if (this == cell) {
-//            return false;
-//        }
-//        col++;
-//    });
     if (col < 0)
         throw "Can't find cell";
 

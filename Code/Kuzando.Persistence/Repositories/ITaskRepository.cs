@@ -9,5 +9,6 @@ namespace Kuzando.Persistence.Repositories
         Task[] GetByDueDateRange(int userId, DateRange range);
         void UpdateTaskDatePriority(int userId, int taskId, DateTime newDate, int priorityInDay);
         void UpdateTaskText(int userId, int taskId, string newText);
+        void Delete(int userId, int taskId);
     }
 }
