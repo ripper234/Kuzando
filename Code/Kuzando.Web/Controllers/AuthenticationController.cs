@@ -37,7 +37,7 @@ namespace Kuzando.Web.Controllers
                 if (response == null)
                 {
                     // Stage 2: user submitting Identifier
-                    var openId = Request.Form["openId"];
+                    var openId = Request.Form["openid_identifier"];
                     relayingParty.CreateRequest(openId).RedirectToProvider();
 
                     // todo - http://stackoverflow.com/questions/2724455/iauthenticationrequest-redirecttoprovider-is-not-supposed-to-return-yet-it-does
@@ -86,14 +86,17 @@ namespace Kuzando.Web.Controllers
         private ActionResult RedirectFromLoginPage(User user)
         {
             var returnUrl = Request.QueryString["ReturnURL"];
-            if (returnUrl != "" && returnUrl != "/")
+            switch (returnUrl)
             {
-                FormsAuthentication.RedirectFromLoginPage(user.Id.ToString(), false);
-                return new EmptyResult();
+                case null:
+                case "":
+                case "/":
+                    FormsAuthentication.SetAuthCookie(user.Id.ToString(), false); //not set cookie  
+                    return RedirectToAction("Index", "Home");
             }
             
-            FormsAuthentication.SetAuthCookie(user.Id.ToString(), false); //not set cookie  
-            return RedirectToAction("Index", "Home");
+            FormsAuthentication.RedirectFromLoginPage(user.Id.ToString(), false);
+            return new EmptyResult();
         }
 
         public ActionResult Logout()

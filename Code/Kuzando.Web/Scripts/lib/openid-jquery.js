@@ -84,8 +84,8 @@ var openid = {
 	cookie_expires: 6*30,	// 6 months.
 	cookie_name: 'openid_provider',
 	cookie_path: '/',
-	
-	img_path: 'images/',
+
+	img_path: '/Content/images/openid-selector/',
 	
 	input_id: null,
 	provider_url: null,
