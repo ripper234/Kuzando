@@ -11,4 +11,6 @@
     To start using Kuzando, <a href="/Authentication/Login" title="Login or create your account">login or create your account</a>.
     </p>
     <p>Writen by <a href="http://ripper234.com/">Ron Gross</a> for Aya Federman.</p>
+    <br />
+    <img src="/Content/Images/screenshot_small.png" width="500" height="456" alt="Kuzando Screenshot" title="Screenshot"/>
 </asp:Content>
