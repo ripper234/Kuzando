@@ -10,5 +10,5 @@
     Kuzando is a simple task management system based on post-its.<br />
     To start using Kuzando, <a href="/Authentication/Login" title="Login or create your account">Login or create your account</a>.
     </p>
-    <p>Writen by <a href="http://ripper234.com/">Ron Gross</a> for Aya Federman</p>
+    <p>Writen by <a href="http://ripper234.com/">Ron Gross</a> for Aya Federman.</p>
 </asp:Content>

@@ -48,5 +48,10 @@ namespace Kuzando.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Faq()
+        {
+            return View();
+        }
     }
 }

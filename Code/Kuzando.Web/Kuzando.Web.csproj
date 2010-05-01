@@ -112,6 +112,7 @@
     <Content Include="castle.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\css\openid.css" />
     <Content Include="Content\Images\new_sticky.png" />
     <Content Include="Content\Images\sticky.png" />
     <Content Include="Content\Images\trashbin.png" />
@@ -136,9 +137,10 @@
     <Content Include="Scripts\Lib\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\Lib\showdown.js" />
     <Content Include="Views\Authentication\Login.aspx" />
+    <Content Include="Views\Home\Faq.aspx" />
     <Content Include="Views\Tasks\Show.aspx" />
     <Content Include="Web.config" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\css\Site.css" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Error.aspx" />

@@ -85,7 +85,8 @@ namespace Kuzando.Web.Controllers
 
         private ActionResult RedirectFromLoginPage(User user)
         {
-            if (Request.QueryString["ReturnURL"] != "")
+            var returnUrl = Request.QueryString["ReturnURL"];
+            if (returnUrl != "" && returnUrl != "/")
             {
                 FormsAuthentication.RedirectFromLoginPage(user.Id.ToString(), false);
                 return new EmptyResult();
