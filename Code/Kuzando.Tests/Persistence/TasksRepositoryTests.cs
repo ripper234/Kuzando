@@ -27,6 +27,8 @@ namespace Kuzando.Tests.Persistence
         [Test]
         public void GetByDueDateRange_OneTaskPerDay_SevenTasksAreReturned()
         {
+            var x = DateTime.Now.Subtract(new DateTime(2010, 05, 2, 01, 20, 20));
+
             for (int day = 1; day < 20; ++day)
                 _tasksRepository.Save(CreateTask(CreateDate(day)));
 

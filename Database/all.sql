@@ -30,7 +30,7 @@ CREATE TABLE `tasks` (
   `PriorityInDay` tinyint(3) unsigned NOT NULL,
   `Deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `users` */
 
@@ -38,12 +38,12 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `Id` int(4) unsigned NOT NULL AUTO_INCREMENT,
-  `Name` varchar(30) NOT NULL,
+  `Name` varchar(100) NOT NULL,
   `SignupDate` datetime NOT NULL,
   `OpenId` varchar(100) NOT NULL,
   `Email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

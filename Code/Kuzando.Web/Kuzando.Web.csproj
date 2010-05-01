@@ -115,7 +115,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\css\openid.css" />
+    <Content Include="Content\Images\left_arrow.png" />
     <Content Include="Content\Images\new_sticky.png" />
+    <Content Include="Content\Images\right_arrow.png" />
     <Content Include="Content\Images\sticky.png" />
     <Content Include="Content\Images\trashbin.png" />
     <Content Include="Global.asax" />

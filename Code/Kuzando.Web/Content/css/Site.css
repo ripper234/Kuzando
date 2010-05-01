@@ -401,10 +401,18 @@ th.taskcell
 #action-icons
 {
 	float:right;
+	position:relative;
+	border:0;
+}
+#action-icons *
+{
+	border:0;
 }
 #action-icons img
 {
 	position:relative;
-	top:-30px;
-	padding-left:20px;
+}
+.today
+{
+	background-color:Lime;	
 }
