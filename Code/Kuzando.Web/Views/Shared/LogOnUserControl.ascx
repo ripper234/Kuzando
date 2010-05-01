@@ -2,7 +2,7 @@
 <%
     if (Model != null && Model.LoggedInUser != null) {
 %>
-        Welcome <b><%= Html.Encode(Model.LoggedInUser.Name) %></b>!
+        Welcome <b><%= Html.ActionLink(Model.LoggedInUser.Name, "Index", "Profile") %></b>!
         [ <%= Html.ActionLink("Logout", "Logout", "Authentication", new { returnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)%> ]
 <%
     }

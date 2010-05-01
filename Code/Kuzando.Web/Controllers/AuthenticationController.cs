@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using Kuzando.Common.Web;
 using Kuzando.Model.Entities.DB;
@@ -38,7 +39,14 @@ namespace Kuzando.Web.Controllers
                 {
                     // Stage 2: user submitting Identifier
                     var openId = Request.Form["openid_identifier"];
-                    relayingParty.CreateRequest(openId).RedirectToProvider();
+                    var req = relayingParty.CreateRequest(openId);
+                    req.AddExtension(new ClaimsRequest
+                    {
+                        Email = DemandLevel.Require,
+                        FullName = DemandLevel.Require,
+                        Nickname = DemandLevel.Request,
+                    });
+                    req.RedirectToProvider();
 
                     // todo - http://stackoverflow.com/questions/2724455/iauthenticationrequest-redirecttoprovider-is-not-supposed-to-return-yet-it-does
                     throw new Exception("Never gets here");
@@ -57,6 +65,18 @@ namespace Kuzando.Web.Controllers
                         }
 
                         // register
+                        var sreg = response.GetExtension<ClaimsResponse>();
+                        if (sreg != null)
+                        {
+                            // todo (sreg has always been null when I tried to debug this)
+
+                            // the Provider MAY not provide anything
+                            // and even if it does, any of these attributes MAY be missing
+                            var email = sreg.Email;
+                            var fullName = sreg.FullName;
+                            // get the rest of the attributes, and store them off somewhere.
+                        }
+
                         var username = response.FriendlyIdentifierForDisplay;
                         user = new User
                         {

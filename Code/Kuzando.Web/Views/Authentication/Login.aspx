@@ -22,7 +22,9 @@
     
     
     <div>
-    <% using (Html.BeginForm("Authenticate", "Authentication", new { ReturnUrl = Request.QueryString["ReturnUrl"], id = "openid_form" }))
+    <% 
+        using (Html.BeginForm("Authenticate", "Authentication", new { ReturnUrl = Request.QueryString["ReturnUrl"]}, 
+            FormMethod.Post, new {id = "openid_form"}))
        { %>
 
     	<input type="hidden" name="action" value="verify" />

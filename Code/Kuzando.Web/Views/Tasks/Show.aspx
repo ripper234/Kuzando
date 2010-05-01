@@ -22,16 +22,6 @@
     </h1>
 </div>
        <br />
-       <%--<%= Html.Grid(Model.Item.Tasks).Columns(column => {
-     		column.For(x => x.Id).Named("Person ID");
-     		column.For(x => x.Title);
-     		column.For(x => x.DueDate).Format("{0:d}");
-     	})
-        .Attributes(style => "width:100%")
-     	.Empty("There are no people.")
-     	.RowStart(row => "<tr foo='bar'>") %>
-     	
-     	<br />--%>
      	
      	<table width="100%" class="tasksgrid">
      	    <tr>

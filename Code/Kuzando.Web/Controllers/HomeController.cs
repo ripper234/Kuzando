@@ -31,8 +31,7 @@ namespace Kuzando.Web.Controllers
         /// <returns></returns>
         private ActionResult IndexLoggedIn()
         {
-            var dateRange = DateRange.CreateWeekRange(DateTime.Now);
-            return RedirectToAction("Show", "Tasks", new {from=dateRange.From, to=dateRange.To});
+            return RedirectToAction("Show", "Tasks");
         }
 
         /// <summary>

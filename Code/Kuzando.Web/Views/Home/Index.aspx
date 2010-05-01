@@ -8,7 +8,7 @@
     <h2><%= Html.Encode(ViewData["Message"]) %></h2>
     <p>
     Kuzando is a simple task management system based on post-its.<br />
-    To start using Kuzando, <a href="/Authentication/Login" title="Login or create your account">Login or create your account</a>.
+    To start using Kuzando, <a href="/Authentication/Login" title="Login or create your account">login or create your account</a>.
     </p>
     <p>Writen by <a href="http://ripper234.com/">Ron Gross</a> for Aya Federman.</p>
 </asp:Content>

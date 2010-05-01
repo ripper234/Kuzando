@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-
-namespace Kuzando.Common.Web
+﻿namespace Kuzando.Common.Web
 {
     public class ItemModel<T, TUser> : ModelBase<TUser>
     {

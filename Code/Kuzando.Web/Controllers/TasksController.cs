@@ -17,9 +17,15 @@ namespace Kuzando.Web.Controllers
         }
 
         //[Authorize]
-        public ActionResult Show(DateTime from, DateTime to)
+        public ActionResult Show(DateTime? from, DateTime? to)
         {
-            var range = new DateRange(from, to);
+            var dateRange = DateRange.CreateWeekRange(DateTime.Now);
+            if (from == null)
+                from = dateRange.From;
+            if (to == null)
+                to = dateRange.To;
+
+            var range = new DateRange((DateTime)from, (DateTime)to);
             var currentUser = GetCurrentUser();
             if (currentUser == null)
                 return RedirectToAction("Login", "Authentication");

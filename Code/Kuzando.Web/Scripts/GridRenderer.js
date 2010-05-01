@@ -172,7 +172,7 @@ function findDate(cell) {
     if (col < 0)
         throw "Can't find cell";
 
-    var date = new Date();
+    var date = fromDate;
     date.setDate(fromDate.getDate() + col);
     return dateToString(date);
 }
