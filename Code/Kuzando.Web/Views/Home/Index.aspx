@@ -1,12 +1,14 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Home Page
+    Kuzando Home
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%= Html.Encode(ViewData["Message"]) %></h2>
     <p>
-        To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+    Kuzando is a simple task management system based on post-its.<br />
+    To start using Kuzando, <a href="/Authentication/Login" title="Login or create your account">Login or create your account</a>.
     </p>
+    <p>Writen by <a href="http://ripper234.com/">Ron Gross</a> for Aya Federman</p>
 </asp:Content>
