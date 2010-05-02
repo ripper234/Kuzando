@@ -118,6 +118,8 @@
     <Content Include="Content\Images\left_arrow.png" />
     <Content Include="Content\Images\new_sticky.png" />
     <Content Include="Content\Images\right_arrow.png" />
+    <Content Include="Content\Images\screenshot.png" />
+    <Content Include="Content\Images\screenshot_small.png" />
     <Content Include="Content\Images\sticky.png" />
     <Content Include="Content\Images\trashbin.png" />
     <Content Include="Global.asax" />
