@@ -21,8 +21,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div style="float:left">
     <h1 class="edit">Your tasks for <%= Html.Encode(Model.Item.Range.From.ToShortDateString()) %> - <%= Html.Encode(Model.Item.Range.To.ToShortDateString())%></h1>
+    </div>
     
+    <div style="float:right">
     <table id="action-icons">
     <tbody>
         <tr>
@@ -48,6 +51,7 @@
         </tr>
         </tbody>
     </table>
+    </div>
     
  	<table width="100%" class="tasksgrid">
  	<tbody>
