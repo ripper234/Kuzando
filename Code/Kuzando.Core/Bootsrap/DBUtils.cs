@@ -10,7 +10,7 @@ namespace Kuzando.Core.Bootsrap
             using (ITransaction tx = session.BeginTransaction())
             {
                 AddQuery(session, "truncate table tasks");
-                AddQuery(session, "truncate table users");
+                AddQuery(session, "delete from users");
                 tx.Commit();
             }
         }
