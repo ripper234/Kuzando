@@ -7,7 +7,7 @@ So, we decided to build something simple that would be fit for her.
 
 **Q - Why wasn't Kuzando built with technology X?**
 
-If you are suggestions, you're welcome to contribute ideas or patches.
+If you have any suggestions, you're welcome to contribute ideas or patches.
 
 **Q - What does the name "Kuzando" stand for ?**
 
