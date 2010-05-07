@@ -2,6 +2,8 @@ Kuzando is a simple task management / calender application built with Asp.NET MV
 
 To **report issues** or **request features**, please use our [Google Code issue tracker](http://code.google.com/p/kuzando/issues/list).
 
+
+
 **Q - Why build Kuzando when there are a ton of alternatives out there like Evernote, RememberTheMilk and lots more?**
 
 Kuzando was built specifically for the needs of my fiancee, Aya. We took a tour of several existing systems, and simply put, she didnt' find them fitting for her needs.
