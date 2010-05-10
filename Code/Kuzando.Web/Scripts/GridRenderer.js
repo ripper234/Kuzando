@@ -1,5 +1,11 @@
-﻿function getFromDateStr() {
-    return $('form > input#fromDate')[0]["value"];
+﻿function removeHoursFromDate(dateWithHours) {
+    var dateRegex = /(\d+\/\d+\/\d+)/;
+    var match = dateRegex.exec(dateWithHours);
+    return match[1];
+}
+
+function getFromDateStr() {
+    return removeHoursFromDate($('form > fieldset input#fromDate')[0]["value"]);
 }
 function getFromDate() {
     return new Date(Date.parse(getFromDateStr()));
@@ -7,14 +13,11 @@ function getFromDate() {
 
 function updateCards() {
     var fromDateStr = getFromDateStr();
-    var toDateStr = $('form > input#toDate')[0]["value"];
+    var toDateStr = removeHoursFromDate($('form > fieldset input#toDate')[0]["value"]);
 
     $.get("/Tasks/Get", { from: fromDateStr, to: toDateStr }, function(data) {
-        var tasksAssignedToDay
-        data.every(function(task) {
-            createCardFromTask(task);
-
-            return true;
+        $.each(data, function() {
+            createCardFromTask(this);
         });
 
         $(".taskcell").droppable({
@@ -113,6 +116,11 @@ function createCardFromTask(task) {
 }
 
 $(document).ready(function() {
+    $.ajaxSetup({
+        // Disable caching of AJAX responses */
+        cache: false
+    });
+    
     updateCards();
     doActionIcons();
 });
@@ -183,5 +191,5 @@ function findPriorityInDay(cell) {
 }
 
 function dateToString(date) {
-    return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " 12:00:00 AM";
+    return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();  //+ " 12:00:00 AM";
 }

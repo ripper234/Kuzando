@@ -52,7 +52,7 @@
         </tbody>
     </table>
     </div>
-    
+    <br style="clear:both"/>
  	<table width="100%" class="tasksgrid">
  	<tbody>
  	    <tr>
@@ -84,7 +84,9 @@
  	</table>
      	
  	<form id="jsParams" action="">
+ 	<fieldset>
  	<%= Html.HiddenFor(x => x.Item.Range.From, new {id = "fromDate"})%>
  	<%= Html.HiddenFor(x => x.Item.Range.To, new {id = "toDate"})%>
+ 	</fieldset>
  	</form>
 </asp:Content>
