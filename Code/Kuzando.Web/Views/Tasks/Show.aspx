@@ -58,14 +58,10 @@
  	    <tr>
  	        <% foreach (var day in Enum.GetValues(typeof(DayOfWeek))) {%>
              <th class='taskcell'>
-             <% if (Model.Item.Range.From.AddDays((int)day).Date == DateTime.Now.Date) {%>
-                 <div class="today">
-                 <% } %>
-    <%= Html.Encode(day) %> 
-    <% if (DateTime.Now.Subtract(Model.Item.Range.From).Days == (int)day) {%>
-                 </div>
-                 <% } %>
-                 </th>
+             <div>
+             <%= Html.Encode(day) %> 
+             </div>
+             </th>
  	        <%
              }%>
  	    </tr>

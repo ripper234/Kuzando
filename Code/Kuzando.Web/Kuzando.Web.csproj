@@ -107,9 +107,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="castle.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="castle.xml" />
     <Content Include="Content\css\openid.css" />
     <Content Include="Content\Images\left_arrow.png" />
     <Content Include="Content\Images\new_sticky.png" />
@@ -154,7 +152,7 @@
     <Content Include="Views\Home\Faq.aspx" />
     <Content Include="Views\Profile\Index.aspx" />
     <Content Include="Views\Tasks\Show.aspx" />
-    <Content Include="Web.config" />
+    <None Include="Web.config" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Index.aspx" />

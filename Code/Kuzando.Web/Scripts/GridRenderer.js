@@ -120,10 +120,22 @@ $(document).ready(function() {
         // Disable caching of AJAX responses */
         cache: false
     });
-    
+
+    colorToday();
     updateCards();
     doActionIcons();
 });
+
+function colorToday() {
+    var today = new Date();
+    var date = getFromDate();
+    $('th.taskcell div').each(function(i, cell) {
+        if (date.getDate() == today.getDate()) {
+            $(cell).addClass("today");
+        }
+        date.setDate(date.getDate() + 1);
+    });
+}
 
 function doActionIcons() {
     $('#trash').droppable({
