@@ -111,11 +111,11 @@ namespace Kuzando.Web.Controllers
                 case null:
                 case "":
                 case "/":
-                    FormsAuthentication.SetAuthCookie(user.Id.ToString(), false); //not set cookie  
+                    FormsAuthentication.SetAuthCookie(user.Id.ToString(), true); //not set cookie  
                     return RedirectToAction("Index", "Home");
             }
-            
-            FormsAuthentication.RedirectFromLoginPage(user.Id.ToString(), false);
+
+            FormsAuthentication.RedirectFromLoginPage(user.Id.ToString(), true);
             return new EmptyResult();
         }
 
