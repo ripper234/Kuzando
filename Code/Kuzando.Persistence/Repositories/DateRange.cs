@@ -1,4 +1,5 @@
 ﻿using System;
+using Kuzando.Common;
 
 namespace Kuzando.Persistence.Repositories
 {
@@ -18,21 +19,20 @@ namespace Kuzando.Persistence.Repositories
             return From + "-" + To;
         }
 
-        public static DateRange CreateWeekRange(DateTime now)
+        public static DateRange CreateWeekRange(DateTime start)
         {
-            var lastSunday = DateTime.Now;
+            // zero hours/miunutes/etc...
+            start = start.GetLastMidnight();
+
+            var lastSunday = start;
+
             while (lastSunday.DayOfWeek != DayOfWeek.Sunday)
             {
                 lastSunday = lastSunday.Subtract(TimeSpan.FromDays(1));
             }
-            lastSunday = GetMidnight(lastSunday);
+            lastSunday = lastSunday.GetLastMidnight();
             var nextSunday = lastSunday.AddDays(7);
             return new DateRange(lastSunday, nextSunday);
-        }
-
-        private static DateTime GetMidnight(DateTime sunday)
-        {
-            return new DateTime(sunday.Year, sunday.Month, sunday.Day);
         }
     }
 }

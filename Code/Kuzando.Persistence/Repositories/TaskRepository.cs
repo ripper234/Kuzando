@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Castle.ActiveRecord;
 using Kuzando.Model.Entities.DB;
 using NHibernate;
@@ -29,7 +28,9 @@ namespace Kuzando.Persistence.Repositories
                     Restrictions.And(
                         Restrictions.Eq("User.Id", userId),
                         Restrictions.Eq("Deleted", false)),
-                    Restrictions.Between("DueDate", range.From, range.To)));
+                        Restrictions.And(
+                    Restrictions.Between("DueDate", range.From, range.To),
+                    Restrictions.Not(Restrictions.Eq("DueDate", range.To)))));
         }
 
         private Task GetTaskWithUserId(int userId, int taskId)

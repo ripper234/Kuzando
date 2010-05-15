@@ -1,6 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
-using Kuzando.Model.Entities.DB;
+﻿using System.Web.Mvc;
 using Kuzando.Persistence.Repositories;
 
 namespace Kuzando.Web.Controllers
@@ -31,7 +29,7 @@ namespace Kuzando.Web.Controllers
         /// <returns></returns>
         private ActionResult IndexLoggedIn()
         {
-            return RedirectToAction("Show", "Tasks");
+            return RedirectToAction("ShowWeek", "Tasks");
         }
 
         /// <summary>

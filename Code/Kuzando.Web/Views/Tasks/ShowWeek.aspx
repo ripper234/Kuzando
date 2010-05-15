@@ -1,5 +1,6 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Kuzando.Common.Web.ItemModel<Kuzando.Persistence.Repositories.TasksForDateRange, Kuzando.Model.Entities.DB.User>>" %>
 <%@ Import Namespace="Kuzando.Web.Helpers" %>
+<%@ Import Namespace="Kuzando.Common" %>
 
 <script runat="server">
 
@@ -35,15 +36,13 @@
         
         <tr>
             <td id="prevWeek">
-                <a href="<%= Url.Action("Show", "Tasks", new { from = Model.Item.Range.From.AddDays(-7),
-                                                            to = Model.Item.Range.To.AddDays(-7)}) %>">
+                <a href="<%= Url.Action("ShowWeek", "Tasks", new { from = Model.Item.Range.From.AddDays(-7).GetDaysSince1970()}) %>">
                 <img src="/Content/images/left_arrow.png" title="Previous Week" alt="" width="36" height="36"/>
             </a>
             </td>
             
             <td id="nextWeek">
-                <a href="<%= Url.Action("Show", "Tasks", new { from = Model.Item.Range.From.AddDays(7),
-                                                            to = Model.Item.Range.To.AddDays(7)}) %>">
+                <a href="<%= Url.Action("ShowWeek", "Tasks", new { from = Model.Item.Range.From.AddDays(7).GetDaysSince1970()}) %>">
                 <img src="/Content/images/right_arrow.png" title="Next Week" alt="" width="36" height="36"/>
             </a>
             </td>
@@ -58,7 +57,7 @@
  	        <% foreach (var day in Enum.GetValues(typeof(DayOfWeek))) {%>
              <th class='headercell'>
              <div>
-             <%= Html.Encode(day) %> 
+             <%= Html.Encode(day +  " (" + Model.Item.Range.From.AddDays((int)day).Day + ")") %> 
              </div>
              </th>
  	        <%
@@ -80,8 +79,9 @@
      	
  	<form id="jsParams" action="">
  	<fieldset>
- 	<%= Html.HiddenFor(x => x.Item.Range.From, new {id = "fromDate"})%>
- 	<%= Html.HiddenFor(x => x.Item.Range.To, new {id = "toDate"})%>
+ 	<%= "<input id='fromDate' name='Item.Range.From' type='hidden' value='"
+        + Model.Item.Range.From.GetDaysSince1970()
+ 	    + "' />" %>
  	</fieldset>
  	</form>
 </asp:Content>

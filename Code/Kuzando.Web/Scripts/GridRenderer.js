@@ -1,21 +1,28 @@
-﻿function removeHoursFromDate(dateWithHours) {
-    var dateRegex = /(\d+\/\d+\/\d+)/;
-    var match = dateRegex.exec(dateWithHours);
-    return match[1];
+﻿$(document).ready(function() {
+    $.ajaxSetup({
+        // Disable caching of AJAX responses */
+        cache: false
+    });
+
+    colorToday();
+    updateCards();
+    doActionIcons();
+});
+
+function getFromDateDays() {
+    return parseInt($('form > fieldset input#fromDate')[0]["value"], 10);
 }
 
-function getFromDateStr() {
-    return removeHoursFromDate($('form > fieldset input#fromDate')[0]["value"]);
-}
 function getFromDate() {
-    return new Date(Date.parse(getFromDateStr()));
+    var daysFrom1970Str = getFromDateDays();
+    var date = new Date(parseInt(daysFrom1970Str, 10) * 24 * 3600 * 1000);
+    return date;
 }
 
 function updateCards() {
-    var fromDateStr = getFromDateStr();
-    var toDateStr = removeHoursFromDate($('form > fieldset input#toDate')[0]["value"]);
+    var fromDate = getFromDateDays();
 
-    $.get("/Tasks/Get", { from: fromDateStr, to: toDateStr }, function(data) {
+    $.get("/Tasks/Get", { fromDate: fromDate}, function(data) {
         $.each(data, function() {
             createCardFromTask(this);
         });
@@ -32,10 +39,10 @@ function updateCards() {
                     }
 
                     var taskId = getTaskId(draggable);
-                    var dateStr = findDate(droppable);
+                    var date = findDateDays(droppable);
                     var newPriorityInDay = findPriorityInDay(droppable);
 
-                    updateTaskDatePriority(taskId, dateStr, newPriorityInDay);
+                    updateTaskDatePriority(taskId, date, newPriorityInDay);
                     
                     $(draggable).removeClass('ui-dragable-dragging');
                     $(draggable).attr('style', 'position:relative');
@@ -64,7 +71,7 @@ function updateTaskDatePriority(taskId, dateStr, newPriorityInDay) {
 
 function createNewTaskInCell(cell) {
     var priority = findPriorityInDay(cell);
-    var dueDate = findDate(cell);
+    var dueDate = findDateDays(cell);
 
     $.post("/Tasks/CreateNewTask", { priority: priority, dueDate: dueDate }, function(task) {
         newSticky = createCardFromTask(task);
@@ -73,57 +80,54 @@ function createNewTaskInCell(cell) {
 }
 
 function createCardFromTask(task) {
-    var fromDate = getFromDate();
-    dueDate = eval(task["DueDate"].replace(/\/Date\((\d+)\)\//gi, "new Date($1)"));
-    row = $('table.tasksgrid tr')[task["PriorityInDay"] + 1];
+    try {
+        var fromDate = getFromDateDays();
+        dueDateDays = parseInt(task["DueDateInDays"], 10);
+        row = $('table.tasksgrid tr')[task["PriorityInDay"] + 1];
 
-    var millisInDay = 1000 * 3600 * 24;
-    column = Math.floor((dueDate - fromDate) / millisInDay);
-    var cell = row.querySelectorAll('td')[column];
-    var taskId = task["Id"];
-    var text = task["Text"];
-    var converter = new Showdown.converter();
-    
-    // todo - we need to do this without storing the html in the database (just for display).
-    // var html = converter.makeHtml(text);
-    var newSticky = $('<div class="sticky" id="note' + taskId + '"></div>');
-    var newText = $('<div class="edit" id="text' + taskId + '">' + text + '</div>');
-    newSticky.append(newText);
-    newText.editable(function(value, settings) {
-        var task = this.parentNode;
-        var taskId = getTaskId(task);
+        column = dueDateDays - fromDate;
+        if (column < 0) {
+            throw "Negative column. dueDate=" + dueDateDays + ", fromDate= " + fromDate;
+        }
+        var cell = row.querySelectorAll('td')[column];
+        var taskId = task["Id"];
+        var text = task["Text"];
+        var converter = new Showdown.converter();
 
-        $.post("/Tasks/UpdateTaskText", { taskId: taskId, newText: value },
+        // todo - we need to do this without storing the html in the database (just for display).
+        // var html = converter.makeHtml(text);
+        var newSticky = $('<div class="sticky" id="note' + taskId + '"></div>');
+        var newText = $('<div class="edit" id="text' + taskId + '">' + text + '</div>');
+        newSticky.append(newText);
+        newText.editable(function(value, settings) {
+            var task = this.parentNode;
+            var taskId = getTaskId(task);
+
+            $.post("/Tasks/UpdateTaskText", { taskId: taskId, newText: value },
                 function(data) { }, "json");
 
-        return value;
-    }, {
-        indicator: 'Saving...',
-        tooltip: 'Click to edit',
-        type: 'textarea',
-        onblur: 'submit',
-        // submit: 'Save',
-        // cancel: 'Cancel'
-    });
-    newSticky.draggable({   revert: 'invalid', 
-                            revertDuration: 200,
-                            scroll: false
-                        });
+            return value;
+        }, {
+            indicator: 'Saving...',
+            tooltip: 'Click to edit',
+            type: 'textarea',
+            onblur: 'submit'
+            // submit: 'Save',
+            // cancel: 'Cancel'
+        });
+        newSticky.draggable({ revert: 'invalid',
+            revertDuration: 200,
+            scroll: false
+        });
 
-    $(cell).append(newSticky);
-    return newSticky;
+        $(cell).append(newSticky);
+        return newSticky;
+    }
+    catch (e) {
+        alert(e);
+    }
+    
 }
-
-$(document).ready(function() {
-    $.ajaxSetup({
-        // Disable caching of AJAX responses */
-        cache: false
-    });
-
-    colorToday();
-    updateCards();
-    doActionIcons();
-});
 
 function colorToday() {
     var today = new Date();
@@ -184,19 +188,16 @@ function createNextPrevWeekDrag(prefix){
                 }
 
                 var taskId = getTaskId(draggable);
-                var toDate = getFromDate();
+                var toDateDays = getFromDateDays();
                 if (prefix == "prev")
-                    toDate.setDate(toDate.getDate() - 7);
+                    toDateDays -= 7;
                 else if (prefix == "next")
-                    toDate.setDate(toDate.getDate() + 7);
+                    toDateDays += 7
                 else throw "Unexpected prefix '" + prefix + "'";
                 
-                var toDateStr = dateToString(toDate);
                 var newPriorityInDay = findPriorityInDay(draggable.parentNode);
 
-                updateTaskDatePriority(taskId, toDateStr, newPriorityInDay);
-                
-                
+                updateTaskDatePriority(taskId, toDateDays, newPriorityInDay);                                
                     
                 $(draggable).remove();
                 alert("Dragged task to " + prefix + " week");
@@ -230,15 +231,13 @@ function getTaskId(task) {
     return match[1];
 }
 
-function findDate(cell) {
-    var fromDate = getFromDate();
+function findDateDays(cell) {
+    var fromDate = getFromDateDays();
     var col = jQuery.inArray(cell, cell.parentNode.children);
     if (col < 0)
         throw "Can't find cell";
 
-    var date = fromDate;
-    date.setDate(fromDate.getDate() + col);
-    return dateToString(date);
+    return fromDate + col;
 }
 
 function findPriorityInDay(cell) {

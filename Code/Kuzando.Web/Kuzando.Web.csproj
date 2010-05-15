@@ -152,7 +152,7 @@
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\Home\Faq.aspx" />
     <Content Include="Views\Profile\Index.aspx" />
-    <Content Include="Views\Tasks\Show.aspx" />
+    <Content Include="Views\Tasks\ShowWeek.aspx" />
     <None Include="Web.config" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Views\Home\About.aspx" />

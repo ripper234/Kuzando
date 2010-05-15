@@ -1,5 +1,6 @@
 ﻿using System;
 using Kuzando.Model.Entities.DB;
+using Kuzando.Common;
 
 namespace Kuzando.Web.Dtos
 {
@@ -7,14 +8,14 @@ namespace Kuzando.Web.Dtos
     public class TaskDto
     {
         public string Text { get; private set; }
-        public DateTime DueDate { get; private set; }
+        public int DueDateInDays { get; private set; }
         public int PriorityInDay { get; private set; }
         public int Id { get; private set; }
 
         public TaskDto(Task task)
         {
             Text = task.Text;
-            DueDate = task.DueDate;
+            DueDateInDays = task.DueDate.GetDaysSince1970();
             PriorityInDay = task.PriorityInDay;
             Id = task.Id;
         }
