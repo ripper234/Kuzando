@@ -77,7 +77,7 @@ namespace Kuzando.Web.Controllers
                             // get the rest of the attributes, and store them off somewhere.
                         }
 
-                        var username = response.FriendlyIdentifierForDisplay;
+                        var username = FixUsername(response.FriendlyIdentifierForDisplay);
                         user = new User
                         {
                             Name = username,
@@ -101,6 +101,14 @@ namespace Kuzando.Web.Controllers
                         throw new Exception("Unknown status");
                 }
             }
+        }
+
+        private static string FixUsername(string username)
+        {
+            if (username == "www.google.com/accounts/o8/id")
+                return "Unknown Google User";
+
+            return username;
         }
 
         private ActionResult RedirectFromLoginPage(User user)

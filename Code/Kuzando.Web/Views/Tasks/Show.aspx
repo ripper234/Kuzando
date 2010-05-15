@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Kuzando.Common.Web.ItemModel<Kuzando.Persistence.Repositories.TasksForDateRange, Kuzando.Model.Entities.DB.User>>" %>
-<%@ Import Namespace="MvcContrib.UI.Grid" %>
+<%@ Import Namespace="Kuzando.Web.Helpers" %>
 
 <script runat="server">
 
@@ -22,7 +22,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div style="float:left">
-    <h1 class="edit">Your tasks for <%= Html.Encode(Model.Item.Range.From.ToShortDateString()) %> - <%= Html.Encode(Model.Item.Range.To.ToShortDateString())%></h1>
+    <h1 class="edit">Your tasks for <%= Html.Encode(DateFormatter.Format(Model.Item.Range.From)) %> - <%= Html.Encode(DateFormatter.Format(Model.Item.Range.To))%></h1>
     </div>
     
     <div style="float:right">
