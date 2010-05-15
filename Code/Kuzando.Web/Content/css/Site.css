@@ -414,6 +414,11 @@ button
 {
 	position:relative;
 }
+#action-icons td
+{
+	min-width:100px;
+	text-align:center;
+}
 .today
 {
 	background-color:Lime;	

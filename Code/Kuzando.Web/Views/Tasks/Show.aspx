@@ -34,16 +34,15 @@
         </tr>
         
         <tr>
-            <td>
-            
-            <a href="<%= Url.Action("Show", "Tasks", new { from = Model.Item.Range.From.AddDays(-7),
+            <td id="prevWeek">
+                <a href="<%= Url.Action("Show", "Tasks", new { from = Model.Item.Range.From.AddDays(-7),
                                                             to = Model.Item.Range.To.AddDays(-7)}) %>">
                 <img src="/Content/images/left_arrow.png" title="Previous Week" alt="" width="36" height="36"/>
             </a>
             </td>
             
-            <td>
-            <a href="<%= Url.Action("Show", "Tasks", new { from = Model.Item.Range.From.AddDays(7),
+            <td id="nextWeek">
+                <a href="<%= Url.Action("Show", "Tasks", new { from = Model.Item.Range.From.AddDays(7),
                                                             to = Model.Item.Range.To.AddDays(7)}) %>">
                 <img src="/Content/images/right_arrow.png" title="Next Week" alt="" width="36" height="36"/>
             </a>

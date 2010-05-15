@@ -23,13 +23,8 @@ function updateCards() {
         $(".taskcell").droppable({
             drop: function(event, ui) {
                 try {
-                    var draggable = ui.draggable[0];
+                    var draggable = getDraggedTask(ui);
                     var droppable = $(this)[0];
-
-                    // an ugly hack - this happened some times
-                    // todo
-                    if (draggable.className == 'edit')
-                        draggable = draggable.parentNode;
 
                     if (draggable.id == 'newsticky') {
                         createNewTaskInCell(droppable);
@@ -40,10 +35,8 @@ function updateCards() {
                     var dateStr = findDate(droppable);
                     var newPriorityInDay = findPriorityInDay(droppable);
 
-
-                    $.post("/Tasks/UpdateTaskDatePriority", { taskId: taskId, newDate: dateStr, newPriorityInDay: newPriorityInDay },
-                        function(data) { }, "json");
-
+                    updateTaskDatePriority(taskId, dateStr, newPriorityInDay);
+                    
                     $(draggable).removeClass('ui-dragable-dragging');
                     $(draggable).attr('style', 'position:relative');
                     $(droppable).append(draggable);
@@ -62,6 +55,11 @@ function updateCards() {
             createNewTaskInCell(this);
         });
     }, "json");
+}
+
+function updateTaskDatePriority(taskId, dateStr, newPriorityInDay) {
+    $.post("/Tasks/UpdateTaskDatePriority", { taskId: taskId, newDate: dateStr, newPriorityInDay: newPriorityInDay },
+                        function(data) { }, "json");
 }
 
 function createNewTaskInCell(cell) {
@@ -103,8 +101,9 @@ function createCardFromTask(task) {
         indicator: 'Saving...',
         tooltip: 'Click to edit',
         type: 'textarea',
-        submit: 'Save',
-        cancel: 'Cancel'
+        onblur: 'submit',
+        // submit: 'Save',
+        // cancel: 'Cancel'
     });
     newSticky.draggable({   revert: 'invalid', 
                             revertDuration: 200,
@@ -141,13 +140,7 @@ function doActionIcons() {
     $('#trash').droppable({
         drop: function(event, ui) {
             try {
-                var draggable = ui.draggable[0];
-
-                // an ugly hack - this happened some times
-                // todo
-                if (draggable.className == 'edit')
-                    draggable = draggable.parentNode;
-
+                var draggable = getDraggedTask(ui);
                 if (!$(draggable).hasClass('sticky')) {
                     return;
                 }
@@ -165,6 +158,9 @@ function doActionIcons() {
         }
     });
 
+    $('#nextWeek').droppable(createNextPrevWeekDrag("next"));
+    $('#prevWeek').droppable(createNextPrevWeekDrag("prev"));
+    
     $('#newsticky').draggable({
         revert: 'invalid',
         revertDuration: 200,
@@ -176,6 +172,54 @@ function doActionIcons() {
         //containment: '#main',
         scroll: false
     });
+}
+
+function createNextPrevWeekDrag(prefix){
+    return {
+        drop: function(event, ui) {
+            try {
+                var draggable = getDraggedTask(ui);
+                if (!$(draggable).hasClass('sticky')) {
+                    return;
+                }
+
+                var taskId = getTaskId(draggable);
+                var toDate = getFromDate();
+                if (prefix == "prev")
+                    toDate.setDate(toDate.getDate() - 7);
+                else if (prefix == "next")
+                    toDate.setDate(toDate.getDate() + 7);
+                else throw "Unexpected prefix '" + prefix + "'";
+                
+                var toDateStr = dateToString(toDate);
+                var newPriorityInDay = findPriorityInDay(draggable.parentNode);
+
+                updateTaskDatePriority(taskId, toDateStr, newPriorityInDay);
+                
+                
+                    
+                $(draggable).remove();
+                alert("Dragged task to " + prefix + " week");
+                //$.post("/Tasks/Delete", { taskId: taskId },
+                  //      function(data) { }, "json");
+
+                //$(draggable).remove();
+            }
+            catch (e) {
+                alert(e);
+            }
+        }
+    }
+}
+
+function getDraggedTask(ui){
+    var draggable = ui.draggable[0];
+
+    // an ugly hack - this happened some times
+    // todo
+    if (draggable.className == 'edit')
+        draggable = draggable.parentNode;
+    return draggable;
 }
 
 //Get the 'task ID' from the task DOM
