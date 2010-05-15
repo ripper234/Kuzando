@@ -342,16 +342,28 @@ div#title
 {
     width: 6em;
 }
-.taskcell
+.taskcell , .headercell
 {
 	border-width:thin;
 	border-color:Black;
 	text-align:center;
 }
-td.taskcell
+.taskcell
 {
 	height: 110px;
 }
+.taskcell p
+{
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+}
+.headercell
+{
+	height: 2em;
+	width: 160px;
+}
+
 button
 {
 	z-index:1;
@@ -374,17 +386,6 @@ button
 	width: 135px;
 	position:relative;
 	color:Black;	
-}
-td.taskcell p
-{
-  text-align: center;
-  vertical-align: middle;
-  display: table-cell;
-}
-th.taskcell
-{
-	height: 2em;
-	width: 160px;
 }
 .even
 {

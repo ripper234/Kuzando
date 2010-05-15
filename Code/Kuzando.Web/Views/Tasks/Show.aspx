@@ -57,7 +57,7 @@
  	<tbody>
  	    <tr>
  	        <% foreach (var day in Enum.GetValues(typeof(DayOfWeek))) {%>
-             <th class='taskcell'>
+             <th class='headercell'>
              <div>
              <%= Html.Encode(day) %> 
              </div>

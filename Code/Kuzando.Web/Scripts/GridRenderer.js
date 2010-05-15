@@ -129,7 +129,7 @@ $(document).ready(function() {
 function colorToday() {
     var today = new Date();
     var date = getFromDate();
-    $('th.taskcell div').each(function(i, cell) {
+    $('.headercell div').each(function(i, cell) {
         if (date.getDate() == today.getDate()) {
             $(cell).addClass("today");
         }
