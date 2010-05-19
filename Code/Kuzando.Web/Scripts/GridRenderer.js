@@ -141,6 +141,11 @@ function createCardFromTask(task) {
         newSticky.addClass('sticky');
         if (task["Done"])
             newSticky.addClass("done");
+        else {
+            if (task["DueDateInDays"] < getTodayInDays()) {
+                newSticky.addClass("overdue");
+            }
+        }
         newSticky.attr('id', 'note' + taskId);
         var img;
         if (task["Done"]) {
@@ -189,6 +194,13 @@ function createCardFromTask(task) {
         alert(e);
     }
     
+}
+
+function getTodayInDays() {
+    var millisInDay = 1000 * 3600 * 24;
+    var today = new Date();
+    var daysSinceEpoch = Math.floor(today.getTime() / millisInDay);
+    return daysSinceEpoch;
 }
 
 function colorToday() {
