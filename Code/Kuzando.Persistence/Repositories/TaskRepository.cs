@@ -61,6 +61,13 @@ namespace Kuzando.Persistence.Repositories
             Update(task);
         }
 
+        public void UpdateTaskDoneStatus(int userId, int taskId, bool newDoneStatus)
+        {
+            var task = GetTaskWithUserId(userId, taskId);
+            task.IsDone = newDoneStatus;
+            Update(task);
+        }
+
         public void Delete(int userId, int taskId)
         {
             var task = GetTaskWithUserId(userId, taskId);

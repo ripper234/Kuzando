@@ -56,6 +56,16 @@ namespace Kuzando.Web.Controllers
         }
 
         [HttpPost]
+        public void UpdateTaskDoneStatus(int taskId, bool newDoneStatus)
+        {
+            var user = GetCurrentUser();
+            if (user == null)
+                throw new Exception("Must be signed in to update task");
+
+            _taskRepository.UpdateTaskDoneStatus(user.Id, taskId, newDoneStatus);
+        }
+
+        [HttpPost]
         public void UpdateTaskText(int taskId, string newText)
         {
             var user = GetCurrentUser();

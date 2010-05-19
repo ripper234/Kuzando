@@ -7,6 +7,8 @@
     colorToday();
     updateCards();
     doActionIcons();
+    $('img.checked').live('click', handle_checking_unchecking);
+    $('img.unchecked').live('click', handle_checking_unchecking);
 });
 
 function getFromDateDays() {
@@ -69,20 +71,29 @@ function updateCards() {
     }, "json");
 }
 
-function handle_checking() {
+function handle_checking_unchecking() {
     var img = $(this);
-    img.attr("src", checkedImgSrc);
     var sticky = img.parentsUntil(".taskcell").last();
-    sticky.addClass("done");
-    img.click(handle_unchecking);
-}
-
-function handle_unchecking() {
-    var img = $(this);
-    img.attr("src", uncheckedImgSrc);
-    var sticky = img.parentsUntil(".taskcell").last();
-    sticky.removeClass("done");
-    img.click(handle_checking);
+    var currentlyChecked;
+    if (sticky.hasClass('done')) {
+        currentlyChecked = true;
+    } else {
+        currentlyChecked = false;
+    }
+     
+    var newImgSrc;
+    if (currentlyChecked) {
+        newImgSrc = uncheckedImgSrc;
+        sticky.removeClass("done");
+    }
+    else {
+        newImgSrc = checkedImgSrc;
+        sticky.addClass("done");
+    }
+    img.attr("src", newImgSrc);
+    var taskId = getTaskId(sticky);
+    $.post("/Tasks/UpdateTaskDoneStatus", { taskId: taskId, newDoneStatus: !currentlyChecked },
+            function(data) { }, "json");
 }
 
 function updateTaskDatePriority(taskId, dateStr, newPriorityInDay) {
@@ -128,15 +139,17 @@ function createCardFromTask(task) {
         var newSticky = $('.sticky-template').clone().show();
         newSticky.removeClass('sticky-template');
         newSticky.addClass('sticky');
+        if (task["Done"])
+            newSticky.addClass("done");
         newSticky.attr('id', 'note' + taskId);
         var img;
         if (task["Done"]) {
             img = $('<img width="20" height="20" class="checked" alt="done" src="' + checkedImgSrc + '" />');
-            img.click(handle_unchecking);
+            // img.click(handle_unchecking);
         }
         else {
             img = $('<img width="20" height="20" class="unchecked" alt="done" src="' + uncheckedImgSrc + '" />');
-            img.click(handle_checking);
+            // img.click(handle_checking);
         }
         newSticky.find("td.checked-cell").append(img);
         edit = newSticky.find('.edit');
