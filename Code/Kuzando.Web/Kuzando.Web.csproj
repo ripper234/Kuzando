@@ -119,6 +119,7 @@
     <Content Include="Content\Images\sticky.png" />
     <Content Include="Content\Images\trashbin.png" />
     <Content Include="Content\Images\unchecked-icon.png" />
+    <Content Include="Content\Images\warning.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\GridRenderer.js" />
     <Content Include="Scripts\Lib\jquery-1.4.2.min.js" />

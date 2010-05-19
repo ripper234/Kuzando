@@ -9,7 +9,9 @@ namespace Kuzando.Web.Helpers
         public static string Format(DateTime date)
         {
             // todo
-            return date.ToString("dd/MM/yy");
+            return 
+                date.Day + "/" + date.Month + "/" + date.Year;
+                //date.ToString("dd/MM/yy", );
 
 //            var culture = ResolveCulture();
 //            if (culture == null)
