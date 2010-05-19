@@ -15,6 +15,7 @@
     <script type="text/javascript" src="/Scripts/Lib/jquery-ui-1.8.custom.min.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/jquery.jeditable.mini.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/showdown.js"></script>
+    <script type="text/javascript" src="/Scripts/Lib/jquery-jtemplates.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -23,7 +24,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div style="float:left">
-    <h1 class="edit">Your tasks for <%= Html.Encode(DateFormatter.Format(Model.Item.Range.From)) %> - <%= Html.Encode(DateFormatter.Format(Model.Item.Range.To))%></h1>
+    <h1>Your tasks for <%= Html.Encode(DateFormatter.Format(Model.Item.Range.From)) %> - <%= Html.Encode(DateFormatter.Format(Model.Item.Range.To))%></h1>
     </div>
     
     <div style="float:right">
@@ -84,4 +85,17 @@
  	    + "' />" %>
  	</fieldset>
  	</form>
+ 	
+ 	<div class="sticky-template" style="display:none">
+ 	<table class="task-table">
+    <tbody>
+    <tr>
+    <td class="checked-cell">
+    </td>
+    <td>
+    <div class="edit"></div>
+    </td>
+    </tbody>
+    </table>
+    </div>
 </asp:Content>

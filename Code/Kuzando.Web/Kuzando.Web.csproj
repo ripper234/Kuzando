@@ -120,6 +120,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\GridRenderer.js" />
     <Content Include="Scripts\Lib\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\Lib\jquery-jtemplates.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.8.custom.min.js" />
     <Content Include="Scripts\Lib\jquery.jeditable.mini.js" />
     <Content Include="Scripts\Lib\jquery.validate-vsdoc.js" />

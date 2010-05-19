@@ -11,6 +11,7 @@ namespace Kuzando.Web.Dtos
         public int DueDateInDays { get; private set; }
         public int PriorityInDay { get; private set; }
         public int Id { get; private set; }
+        public bool Done { get; private set; }
 
         public TaskDto(Task task)
         {
@@ -18,6 +19,7 @@ namespace Kuzando.Web.Dtos
             DueDateInDays = task.DueDate.GetDaysSince1970();
             PriorityInDay = task.PriorityInDay;
             Id = task.Id;
+            Done = task.IsDone;
         }
     }
     // ReSharper restore MemberCanBePrivate.Global

@@ -226,7 +226,7 @@ table
 
 table td 
 {
-  padding: 5px;   
+  padding: 2px;   
   border: solid 1px #e8eef4;
 }
 
@@ -372,20 +372,24 @@ button
 .sticky
 {
 	background-color: #FCFC80;
-	margin: 5px;
+	margin: 0px;
 	height: 100px;
-	width: 135px;
-	text-align:center;
+	width: 145px;
+	text-align:left;
 	vertical-align:text-bottom;
 	position:relative;
+}
+.done
+{
+	background-color: #F8FFBA;
 }
 .sticky .edit
 {
 	vertical-align:middle;
-	height: 100px;
-	width: 135px;
-	position:relative;
-	color:Black;	
+	color:Black;
+	height:90px;
+	width:110px;
+	word-wrap:break-word; /* Supported on most browsers */
 }
 .even
 {
@@ -422,4 +426,15 @@ button
 .today
 {
 	background-color:Lime;	
+}
+table.task-table , table.task-table *
+{
+	border:0;
+}
+td.checked-cell
+{
+	vertical-align:top;
+}
+img.checked , img.unchecked
+{
 }

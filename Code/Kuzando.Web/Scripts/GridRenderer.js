@@ -22,46 +22,67 @@ function getFromDate() {
 function updateCards() {
     var fromDate = getFromDateDays();
 
-    $.get("/Tasks/Get", { fromDate: fromDate}, function(data) {
-        $.each(data, function() {
-            createCardFromTask(this);
-        });
+    $.get("/Tasks/Get", { fromDate: fromDate }, function(data) {
+        try {
+            $.each(data, function() {
+                createCardFromTask(this);
+            });
+            
+            $(".taskcell").droppable({
+                drop: function(event, ui) {
+                    try {
+                        var draggable = getDraggedTask(ui);
+                        var droppable = $(this)[0];
 
-        $(".taskcell").droppable({
-            drop: function(event, ui) {
-                try {
-                    var draggable = getDraggedTask(ui);
-                    var droppable = $(this)[0];
+                        if (draggable.id == 'newsticky') {
+                            createNewTaskInCell(droppable);
+                            return;
+                        }
 
-                    if (draggable.id == 'newsticky') {
-                        createNewTaskInCell(droppable);
-                        return;
+                        var taskId = getTaskId(draggable);
+                        var date = findDateDays(droppable);
+                        var newPriorityInDay = findPriorityInDay(droppable);
+
+                        updateTaskDatePriority(taskId, date, newPriorityInDay);
+
+                        $(draggable).removeClass('ui-dragable-dragging');
+                        $(draggable).attr('style', 'position:relative');
+                        $(droppable).append(draggable);
                     }
-
-                    var taskId = getTaskId(draggable);
-                    var date = findDateDays(droppable);
-                    var newPriorityInDay = findPriorityInDay(droppable);
-
-                    updateTaskDatePriority(taskId, date, newPriorityInDay);
-                    
-                    $(draggable).removeClass('ui-dragable-dragging');
-                    $(draggable).attr('style', 'position:relative');
-                    $(droppable).append(draggable);
+                    catch (e) {
+                        alert(e);
+                    }
                 }
-                catch (e) {
-                    alert(e);
-                }
-            }
-        });
+            });
 
-        $(".taskcell").dblclick(function() {
-            if ($(this).children().size() > 0)
-                return;
+            $(".taskcell").dblclick(function() {
+                if ($(this).children().size() > 0)
+                    return;
 
-            // create new task
-            createNewTaskInCell(this);
-        });
+                // create new task
+                createNewTaskInCell(this);
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
     }, "json");
+}
+
+function handle_checking() {
+    var img = $(this);
+    img.attr("src", checkedImgSrc);
+    var sticky = img.parentsUntil(".taskcell").last();
+    sticky.addClass("done");
+    img.click(handle_unchecking);
+}
+
+function handle_unchecking() {
+    var img = $(this);
+    img.attr("src", uncheckedImgSrc);
+    var sticky = img.parentsUntil(".taskcell").last();
+    sticky.removeClass("done");
+    img.click(handle_checking);
 }
 
 function updateTaskDatePriority(taskId, dateStr, newPriorityInDay) {
@@ -79,36 +100,65 @@ function createNewTaskInCell(cell) {
     }, "json");
 }
 
+checkedImgSrc = "/Content/Images/checked-icon.png";
+uncheckedImgSrc = "/Content/Images/unchecked-icon.png";
+
 function createCardFromTask(task) {
     try {
         var fromDate = getFromDateDays();
         dueDateDays = parseInt(task["DueDateInDays"], 10);
-        row = $('table.tasksgrid tr')[task["PriorityInDay"] + 1];
+        row = $('table.tasksgrid > tbody > tr')[task["PriorityInDay"] + 1];
 
         column = dueDateDays - fromDate;
         if (column < 0) {
             throw "Negative column. dueDate=" + dueDateDays + ", fromDate= " + fromDate;
         }
-        var cell = row.querySelectorAll('td')[column];
+        var cell = row.querySelectorAll('td.taskcell')[column];
+        if (cell == null)
+            throw ("Failed to fine taskcell in row for priority " + task["PriorityInDay"]);
+            
         var taskId = task["Id"];
         var text = task["Text"];
-        var converter = new Showdown.converter();
+        //var converter = new Showdown.converter();
 
         // todo - we need to do this without storing the html in the database (just for display).
         // var html = converter.makeHtml(text);
-        var newSticky = $('<div class="sticky" id="note' + taskId + '"></div>');
-        var newText = $('<div class="edit" id="text' + taskId + '">' + text + '</div>');
-        newSticky.append(newText);
-        newText.editable(function(value, settings) {
-            var task = this.parentNode;
-            var taskId = getTaskId(task);
 
-            $.post("/Tasks/UpdateTaskText", { taskId: taskId, newText: value },
+
+        var newSticky = $('.sticky-template').clone().show();
+        newSticky.removeClass('sticky-template');
+        newSticky.addClass('sticky');
+        newSticky.attr('id', 'note' + taskId);
+        var img;
+        if (task["Done"]) {
+            img = $('<img width="20" height="20" class="checked" alt="done" src="' + checkedImgSrc + '" />');
+            img.click(handle_unchecking);
+        }
+        else {
+            img = $('<img width="20" height="20" class="unchecked" alt="done" src="' + uncheckedImgSrc + '" />');
+            img.click(handle_checking);
+        }
+        newSticky.find("td.checked-cell").append(img);
+        edit = newSticky.find('.edit');
+        edit.attr('id', 'text' + taskId);
+        edit.append(text);
+        
+        $(cell).append(newSticky);
+
+        edit.editable(function(value, settings) {
+            try {
+                var taskId = getTaskId(this);
+
+                $.post("/Tasks/UpdateTaskText", { taskId: taskId, newText: value },
                 function(data) { }, "json");
 
-            return value;
+                return value;
+            }
+            catch (e) {
+                alert(e);
+            }
         }, {
-            indicator: 'Saving...',
+            // indicator: 'Saving...',
             tooltip: 'Click to edit',
             type: 'textarea',
             onblur: 'submit'
@@ -120,7 +170,6 @@ function createCardFromTask(task) {
             scroll: false
         });
 
-        $(cell).append(newSticky);
         return newSticky;
     }
     catch (e) {
@@ -148,7 +197,7 @@ function doActionIcons() {
                 if (!$(draggable).hasClass('sticky')) {
                     return;
                 }
-
+                
                 var taskId = getTaskId(draggable);
 
                 $.post("/Tasks/Delete", { taskId: taskId },
@@ -225,9 +274,15 @@ function getDraggedTask(ui){
 
 //Get the 'task ID' from the task DOM
 function getTaskId(task) {
+    var task2 = $(task).parentsUntil('.taskcell').last(); // get the child of taskcell
+    if (task2 != null && task2.size() > 0)
+        task = task2;
+    else
+        task = $(task);
+        
     // eg 'note18'
     var regex = /note(\d+)/;
-    var match = regex.exec(task.id);
+    var match = regex.exec(task.attr("id"));
     return match[1];
 }
 
