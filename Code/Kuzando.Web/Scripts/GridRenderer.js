@@ -50,6 +50,7 @@ function updateCards() {
                         $(draggable).removeClass('ui-dragable-dragging');
                         $(draggable).attr('style', 'position:relative');
                         $(droppable).append(draggable);
+                        recalcOverdue(draggable);
                     }
                     catch (e) {
                         alert(e);
@@ -91,6 +92,7 @@ function handle_checking_unchecking() {
         sticky.addClass("done");
     }
     img.attr("src", newImgSrc);
+    recalcOverdue(sticky);
     var taskId = getTaskId(sticky);
     $.post("/Tasks/UpdateTaskDoneStatus", { taskId: taskId, newDoneStatus: !currentlyChecked },
             function(data) { }, "json");
@@ -141,11 +143,6 @@ function createCardFromTask(task) {
         newSticky.addClass('sticky');
         if (task["Done"])
             newSticky.addClass("done");
-        else {
-            if (task["DueDateInDays"] < getTodayInDays()) {
-                newSticky.addClass("overdue");
-            }
-        }
         newSticky.attr('id', 'note' + taskId);
         var img;
         if (task["Done"]) {
@@ -156,13 +153,14 @@ function createCardFromTask(task) {
             img = $('<img width="20" height="20" class="unchecked" alt="done" src="' + uncheckedImgSrc + '" />');
             // img.click(handle_checking);
         }
-        newSticky.find("td.checked-cell").append(img);
+        newSticky.find("div.checked-cell").append(img);
         edit = newSticky.find('.edit');
         edit.attr('id', 'text' + taskId);
         edit.append(text);
         
         $(cell).append(newSticky);
-
+        recalcOverdue(newSticky);
+        
         edit.editable(function(value, settings) {
             try {
                 var taskId = getTaskId(this);
@@ -194,6 +192,16 @@ function createCardFromTask(task) {
         alert(e);
     }
     
+}
+
+function recalcOverdue(sticky) {
+    sticky = $(sticky);
+    var cell = sticky.parents('.taskcell').first();
+    if (!sticky.hasClass('done') && findDateDays(cell) < getTodayInDays()) {
+        sticky.addClass("overdue");
+    } else {
+        sticky.removeClass("overdue");
+    }
 }
 
 function getTodayInDays() {
@@ -313,7 +321,9 @@ function getTaskId(task) {
 
 function findDateDays(cell) {
     var fromDate = getFromDateDays();
-    var col = jQuery.inArray(cell, cell.parentNode.children);
+    cell = $(cell);
+    var col = cell.index();
+    //var col = jQuery.inArray(cell, cell.parentNode.children);
     if (col < 0)
         throw "Can't find cell";
 

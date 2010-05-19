@@ -434,10 +434,18 @@ table.task-table , table.task-table *
 {
 	border:0;
 }
-td.checked-cell
+td.sticky-icons
 {
 	vertical-align:top;
 }
 img.checked , img.unchecked
 {
+}
+img.warn
+{
+	display:none;
+}
+.overdue img.warn
+{
+	display:block;
 }

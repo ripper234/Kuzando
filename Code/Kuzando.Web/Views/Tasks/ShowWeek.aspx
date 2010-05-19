@@ -90,11 +90,19 @@
  	<table class="task-table">
     <tbody>
     <tr>
-    <td class="checked-cell">
-    </td>
-    <td>
-    <div class="edit"></div>
-    </td>
+        <td class="sticky-icons">
+        <div class="checked-cell"></div>
+        <img class="warn" src="/Content/Images/warning.png" alt="overdue" height="20" width="20" title="This task is overdue!"/>
+        </td>
+        <td>
+        <div class="edit"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="warn">
+        
+        </td>
+    </tr>
     </tbody>
     </table>
     </div>
