@@ -29,7 +29,7 @@ namespace Kuzando.Web.Controllers
             user.Name = item.Username;
             Users.Update(user);
 
-            return RedirectToAction("Show", "Tasks");
+            return RedirectToAction("ShowWeek", "Tasks");
         }
     }
 }

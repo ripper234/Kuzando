@@ -24,6 +24,11 @@ namespace Kuzando.Web.Controllers
             return EmptyUserView();
         }
 
+        public ActionResult LoginAsGuest()
+        {
+            return LoginAsUser("Guest", null);
+        }
+
         //
         // Get: /Authentication/Login/openid
         public ActionResult Authenticate()
@@ -54,35 +59,7 @@ namespace Kuzando.Web.Controllers
                 {
                     case AuthenticationStatus.Authenticated:
                         var claimedIdentifier = response.ClaimedIdentifier;
-                        var user = Users.FindByOpenId(claimedIdentifier);
-                        if (user != null)
-                        {
-                            // login
-                            return RedirectFromLoginPage(user);
-                        }
-
-                        // register
-                        var sreg = response.GetExtension<ClaimsResponse>();
-                        if (sreg != null)
-                        {
-                            // todo (sreg has always been null when I tried to debug this)
-
-                            // the Provider MAY not provide anything
-                            // and even if it does, any of these attributes MAY be missing
-                            var email = sreg.Email;
-                            var fullName = sreg.FullName;
-                            // get the rest of the attributes, and store them off somewhere.
-                        }
-
-                        var username = FixUsername(response.FriendlyIdentifierForDisplay);
-                        user = new User
-                        {
-                            Name = username,
-                            OpenId = claimedIdentifier,
-                            SignupDate = DateTime.Now
-                        };
-                        Users.Save(user);
-                        return RedirectFromLoginPage(user);
+                        return LoginAsUser(claimedIdentifier, response);
 
                     case AuthenticationStatus.Canceled:
                         ViewData["Message"] = "Canceled at provider";
@@ -98,6 +75,52 @@ namespace Kuzando.Web.Controllers
                         throw new Exception("Unknown status");
                 }
             }
+        }
+
+        private ActionResult LoginAsUser(string openID, IAuthenticationResponse response)
+        {
+            var user = Users.FindByOpenId(openID);
+            if (user != null)
+            {
+                // login
+                return RedirectFromLoginPage(user);
+            }
+
+            // register
+            if (response == null)
+            {
+                // handle non-open id (e.g. guest account)
+                user = new User
+                {
+                    Name = "Guest",
+                    OpenId = openID,
+                    SignupDate = DateTime.Now
+                };
+                Users.Save(user);
+                return RedirectFromLoginPage(user);
+            }
+
+            var sreg = response.GetExtension<ClaimsResponse>();
+            if (sreg != null)
+            {
+                // todo (sreg has always been null when I tried to debug this)
+
+                // the Provider MAY not provide anything
+                // and even if it does, any of these attributes MAY be missing
+                var email = sreg.Email;
+                var fullName = sreg.FullName;
+                // get the rest of the attributes, and store them off somewhere.
+            }
+
+            var username = FixUsername(response.FriendlyIdentifierForDisplay);
+            user = new User
+            {
+                Name = username,
+                OpenId = openID,
+                SignupDate = DateTime.Now
+            };
+            Users.Save(user);
+            return RedirectFromLoginPage(user);
         }
 
         private static string FixUsername(string username)
