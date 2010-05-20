@@ -1,4 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Kuzando.Common.Web.ItemModel<Kuzando.Persistence.Repositories.TasksForDateRange, Kuzando.Model.Entities.DB.User>>" %>
+<%@ Import Namespace="Kuzando.Model.Entities.DB"%>
 <%@ Import Namespace="Kuzando.Web.Helpers" %>
 <%@ Import Namespace="Kuzando.Common" %>
 
@@ -31,11 +32,22 @@
     <table id="action-icons">
     <tbody>
         <tr>
+            <td style="text-align:left">
+            <table><tr>
+            <td>Show<br />Done?</td>
+            <td>
+            <fieldset>
+            <%= "<input type='checkbox' id='show-done' " + (((Model.LoggedInUser.SettingsFlags & UserSettings.ShowDone) == UserSettings.ShowDone) ? "Checked" : "") + "/>"%>
+            </fieldset>
+            </td>
+            </tr></table>
+            </td>
             <td><img src="/Content/images/new_sticky.png" width="64" height="64" title="Create a new sticky" alt="" id="newsticky"/></td>
             <td><img src="/Content/images/trashbin.png" width="60" height="60" title="Trash it" alt="" id="trash"/></td>
         </tr>
         
         <tr>
+            <td></td>
             <td id="prevWeek">
                 <a href="<%= Url.Action("ShowWeek", "Tasks", new { from = Model.Item.Range.From.AddDays(-7).GetDaysSince1970()}) %>">
                 <img src="/Content/images/left_arrow.png" title="Previous Week" alt="" width="36" height="36"/>

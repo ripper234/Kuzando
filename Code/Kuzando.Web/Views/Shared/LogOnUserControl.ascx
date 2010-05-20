@@ -9,6 +9,7 @@
     else {
 %> 
         [ <%= Html.ActionLink("Login", "Login", "Authentication", new { returnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)%> ]
+          <%= "<input id='settings' type='hidden' value='" + Model.LoggedInUser.SettingsFlags + "' />" %>
 <%
     }
 %>

@@ -24,5 +24,14 @@ namespace Kuzando.Model.Entities.DB
 
         [Property]
         public string Email { get; set; }
+
+        [Property]
+        public UserSettings SettingsFlags { get; set;}
+    }
+
+    [Flags]
+    public enum UserSettings
+    {
+        ShowDone = 1,
     }
 }

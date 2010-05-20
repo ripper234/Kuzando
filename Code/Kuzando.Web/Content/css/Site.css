@@ -421,7 +421,7 @@ button
 {
 	position:relative;
 }
-#action-icons td
+#action-icons > tbody > tr > td
 {
 	min-width:100px;
 	text-align:center;
