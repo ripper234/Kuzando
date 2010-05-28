@@ -113,6 +113,7 @@
     <Content Include="Content\Images\calendar.png" />
     <Content Include="Content\Images\checked-icon.png" />
     <Content Include="Content\Images\left_arrow.png" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\new_sticky.png" />
     <Content Include="Content\Images\right_arrow.png" />
     <Content Include="Content\Images\screenshot.png" />

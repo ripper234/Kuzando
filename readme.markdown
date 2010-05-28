@@ -1,3 +1,5 @@
+![Kuzando](http://kuzando.com/Content/Images/logo.png)
+
 [Kuzando](http://kuzando.com) is a simple task management / calender application built with Asp.NET MVC.
 
 You can use Kuzando by [opening an account via openid](http://kuzando.com/Authentication/Login), or try it out [using our guest account](http://kuzando.com/Authentication/LoginAsGuest).
