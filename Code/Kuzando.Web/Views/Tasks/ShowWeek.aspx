@@ -43,7 +43,7 @@
             <td><%= "<input id='datepicker' type='hidden' value='" + Html.Encode(DateFormatter.Format(Model.Item.Range.From)) + "'/>"%></td>
             <td style="text-align:left">
             <table><tr>
-            <td>Hide<br />Done?</td>
+            <td><label for="hide-done">Hide<br />Done?</label></td>
             <td>
             <fieldset>
             <%= "<input type='checkbox' title='Show or hide Done tasks' id='hide-done' " + (((Model.LoggedInUser.SettingsFlags & UserSettings.HideDone) == UserSettings.HideDone) ? "Checked" : "") + "/>"%>
