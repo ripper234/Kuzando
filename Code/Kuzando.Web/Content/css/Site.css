@@ -447,6 +447,10 @@ img.warn
 {
 	display:none;
 }
+img#logo
+{
+	border:0px;
+}
 .overdue img.warn
 {
 	display:block;

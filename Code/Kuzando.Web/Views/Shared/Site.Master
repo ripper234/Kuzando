@@ -29,7 +29,7 @@
             <div id="title">
                 <%--<h1><%= Html.ActionLink("Kuzando", "Index", "Home")%></h1>--%>
                 <a href="<%= Url.Action("Index", "Home") %>">
-                    <img src="../../Content/Images/logo.png" alt="Kuzando" />
+                    <img id="logo" src="../../Content/Images/logo.png" alt="Kuzando" />
                 </a>
             </div>
               
