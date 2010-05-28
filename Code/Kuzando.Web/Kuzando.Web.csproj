@@ -142,7 +142,7 @@
     <Content Include="Scripts\Lib\jquery-ui\cupertino\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Scripts\Lib\jquery-ui\cupertino\jquery-ui-1.8.1.custom.css" />
     <Content Include="Scripts\Lib\jquery.jeditable.mini.js" />
-    <Content Include="Scripts\Lib\jquery.rule-min.js" />
+    <Content Include="Scripts\Lib\jquery.rule.js" />
     <Content Include="Scripts\Lib\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\Lib\jquery.validate.js" />
     <Content Include="Scripts\Lib\jquery.validate.min-vsdoc.js" />
