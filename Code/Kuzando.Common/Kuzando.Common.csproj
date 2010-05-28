@@ -58,9 +58,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectionExtensions.cs" />
-    <Compile Include="DateTimeExtensions.cs" />
-    <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="IoC\AutoWireServicesExtensions.cs" />
     <Compile Include="IoC\ImplementedByAttribute.cs" />
     <Compile Include="IRepository.cs" />

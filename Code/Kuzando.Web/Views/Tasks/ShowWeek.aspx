@@ -17,6 +17,7 @@
     <script type="text/javascript" src="/Scripts/Lib/jquery.jeditable.mini.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/showdown.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/jquery-jtemplates.js"></script>
+    <script type="text/javascript" src="/Scripts/Lib/jquery.rule.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -34,14 +35,15 @@
         <tr>
             <td style="text-align:left">
             <table><tr>
-            <td>Show<br />Done?</td>
+            <td>Hide<br />Done?</td>
             <td>
             <fieldset>
-            <%= "<input type='checkbox' id='show-done' " + (((Model.LoggedInUser.SettingsFlags & UserSettings.ShowDone) == UserSettings.ShowDone) ? "Checked" : "") + "/>"%>
+            <%= "<input type='checkbox' title='Show or hide Done tasks' id='hide-done' " + (((Model.LoggedInUser.SettingsFlags & UserSettings.HideDone) == UserSettings.HideDone) ? "Checked" : "") + "/>"%>
             </fieldset>
             </td>
             </tr></table>
             </td>
+            
             <td><img src="/Content/images/new_sticky.png" width="64" height="64" title="Create a new sticky" alt="" id="newsticky"/></td>
             <td><img src="/Content/images/trashbin.png" width="60" height="60" title="Trash it" alt="" id="trash"/></td>
         </tr>

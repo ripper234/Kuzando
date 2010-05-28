@@ -373,6 +373,7 @@ button
 {
 	background-color: #FCFC80;
 	margin: 0px;
+	margin-top: 7px;
 	height: 100px;
 	width: 145px;
 	text-align:left;
@@ -405,7 +406,8 @@ button
 }
 .hidden
 {
-	visibility:hidden;
+	/*visibility:hidden; */
+	display:none;
 }
 #action-icons
 {

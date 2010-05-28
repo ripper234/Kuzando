@@ -4,12 +4,12 @@
 %>
         Welcome <b><%= Html.ActionLink(Model.LoggedInUser.Name, "Index", "Profile") %></b>!
         [ <%= Html.ActionLink("Logout", "Logout", "Authentication", new { returnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)%> ]
+        <%= "<input id='settings' type='hidden' value='" + Model.LoggedInUser.SettingsFlags + "' />" %>
 <%
     }
     else {
 %> 
         [ <%= Html.ActionLink("Login", "Login", "Authentication", new { returnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)%> ]
-          <%= "<input id='settings' type='hidden' value='" + Model.LoggedInUser.SettingsFlags + "' />" %>
 <%
     }
 %>

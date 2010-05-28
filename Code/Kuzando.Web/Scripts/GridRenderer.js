@@ -141,8 +141,12 @@ function createCardFromTask(task) {
         var newSticky = $('.sticky-template').clone().show();
         newSticky.removeClass('sticky-template');
         newSticky.addClass('sticky');
-        if (task["Done"])
+        if (task["Done"]) {
             newSticky.addClass("done");
+            if (shouldHideDoneTasks())
+                newSticky.addClass('hidden');
+        }
+        
         newSticky.attr('id', 'note' + taskId);
         var img;
         if (task["Done"]) {
@@ -222,7 +226,19 @@ function colorToday() {
     });
 }
 
+function shouldHideDoneTasks() {
+    return $('#hide-done').is(":checked");
+}
+
 function doActionIcons() {
+    $('#hide-done').click(function() {
+        var isChecked = $(this).is(':checked');
+        $.post("/Profile/UpdateSetting", { hideDone: isChecked }, function(data) { }, "json");
+        applyHideDone(isChecked);
+        
+    });
+    applyHideDone(shouldHideDoneTasks());
+    
     $('#trash').droppable({
         drop: function(event, ui) {
             try {
@@ -233,8 +249,7 @@ function doActionIcons() {
                 
                 var taskId = getTaskId(draggable);
 
-                $.post("/Tasks/Delete", { taskId: taskId },
-                        function(data) { }, "json");
+                $.post("/Tasks/Delete", { taskId: taskId }, function(data) { }, "json");
 
                 $(draggable).remove();
             }
@@ -258,6 +273,24 @@ function doActionIcons() {
         //containment: '#main',
         scroll: false
     });
+}
+
+function applyHideDone(hide) {
+    if (hide)
+        $('.sticky.done').addClass('hidden');
+    else
+        $('.sticky.done').removeClass('hidden');
+        
+        // more beautiful, but not working for some reason
+    /*try {
+        if (hide)
+            $.rule('p', 'visibility').append("hidden");
+        else
+            $.rule('p', 'visibility').remove();
+    }
+    catch (e) {
+        alert("Error applying done: " + e);
+    }*/
 }
 
 function createNextPrevWeekDrag(prefix){

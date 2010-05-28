@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
+using System.Web.Services.Protocols;
+using Kuzando.Common.Extensions;
 using Kuzando.Common.Web;
+using Kuzando.Model.Entities.DB;
 using Kuzando.Persistence.Repositories;
 using Kuzando.Web.Models;
 
@@ -30,6 +33,21 @@ namespace Kuzando.Web.Controllers
             Users.Update(user);
 
             return RedirectToAction("ShowWeek", "Tasks");
+        }
+
+        [HttpPost]
+        public void UpdateSetting(bool? hideDone)
+        {
+            var settings = GetCurrentUser().SettingsFlags;
+            if (hideDone != null)
+            {
+                if ((bool)hideDone)
+                    settings = settings.Add(UserSettings.HideDone);
+                else
+                    settings = settings.Remove(UserSettings.HideDone);
+            }
+            GetCurrentUser().SettingsFlags = settings;
+            Users.Update(GetCurrentUser());
         }
     }
 }

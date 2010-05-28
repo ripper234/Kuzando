@@ -32,6 +32,6 @@ namespace Kuzando.Model.Entities.DB
     [Flags]
     public enum UserSettings
     {
-        ShowDone = 1,
+        HideDone = 1,
     }
 }
