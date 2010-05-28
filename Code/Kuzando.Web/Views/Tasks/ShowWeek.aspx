@@ -13,11 +13,14 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript" src="/Scripts/GridRenderer.js"></script>
-    <script type="text/javascript" src="/Scripts/Lib/jquery-ui-1.8.custom.min.js"></script>
+    <script type="text/javascript" src="/Scripts/Lib/jquery-ui-1.8.1.custom.min.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/jquery.jeditable.mini.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/showdown.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/jquery-jtemplates.js"></script>
     <script type="text/javascript" src="/Scripts/Lib/jquery.rule.js"></script>
+    
+    <link type="text/css" href="/Scripts/Lib/jquery-ui/cupertino/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />	
+
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -26,13 +29,18 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div style="float:left">
-    <h1>Your tasks for <%= Html.Encode(DateFormatter.Format(Model.Item.Range.From)) %> - <%= Html.Encode(DateFormatter.Format(Model.Item.Range.To))%></h1>
+    <h1>Your tasks for 
+    <%= Html.Encode(DateFormatter.Format(Model.Item.Range.From)) %> - <%= Html.Encode(DateFormatter.Format(Model.Item.Range.To))%>
+    
+    </h1>
+    
     </div>
     
     <div style="float:right">
     <table id="action-icons">
     <tbody>
         <tr>
+            <td><%= "<input id='datepicker' type='hidden' value='" + Html.Encode(DateFormatter.Format(Model.Item.Range.From)) + "'/>"%></td>
             <td style="text-align:left">
             <table><tr>
             <td>Hide<br />Done?</td>

@@ -110,6 +110,7 @@
   <ItemGroup>
     <None Include="castle.xml" />
     <Content Include="Content\css\openid.css" />
+    <Content Include="Content\Images\calendar.png" />
     <Content Include="Content\Images\checked-icon.png" />
     <Content Include="Content\Images\left_arrow.png" />
     <Content Include="Content\Images\new_sticky.png" />
@@ -123,8 +124,9 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\GridRenderer.js" />
     <Content Include="Scripts\Lib\jquery-1.4.2.min.js" />
-    <Content Include="Scripts\Lib\jquery-ui-1.8.custom.min.js" />
+    <Content Include="Scripts\Lib\jquery-ui-1.8.1.custom.min.js" />
     <Content Include="Scripts\Lib\jquery.jeditable.mini.js" />
+    <Content Include="Scripts\Lib\jquery.rule-min.js" />
     <Content Include="Scripts\Lib\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\Lib\jquery.validate.js" />
     <Content Include="Scripts\Lib\jquery.validate.min-vsdoc.js" />

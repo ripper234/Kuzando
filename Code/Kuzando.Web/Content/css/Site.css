@@ -451,3 +451,9 @@ img.warn
 {
 	display:block;
 }
+#datepicker
+{
+	position:absolute;
+	top:200px;
+	left:200px;
+}

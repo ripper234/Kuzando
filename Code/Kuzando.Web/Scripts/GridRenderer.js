@@ -209,10 +209,12 @@ function recalcOverdue(sticky) {
 }
 
 function getTodayInDays() {
+    return dateToDaysSinceEpoch(new Date());
+}
+
+function dateToDaysSinceEpoch(date) {
     var millisInDay = 1000 * 3600 * 24;
-    var today = new Date();
-    var daysSinceEpoch = Math.floor(today.getTime() / millisInDay);
-    return daysSinceEpoch;
+    return Math.floor(date.getTime() / millisInDay);
 }
 
 function colorToday() {
@@ -231,6 +233,29 @@ function shouldHideDoneTasks() {
 }
 
 function doActionIcons() {
+    $("#datepicker").datepicker({
+        showOn: 'button',
+        buttonImage: '/Content/Images/Calendar.png',
+        buttonText: 'Click here to change date',
+        dateFormat: 'dd/mm/yy'
+    });
+    $("#datepicker").change(function() {
+        strDate = $(this).val();
+        var dateParts = strDate.split("/");
+        var date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+        date.setHours(23);
+        var days = dateToDaysSinceEpoch(date);
+
+        var url = "/Tasks/ShowWeek?from=" + days;
+        document.location.href = url;
+    });
+    
+//    $("#Text1").datepicker({
+//    showOn: 'button',
+//    buttonImage: '/Content/Images/Calendar.png'
+//    });
+//    $("#Text2").datepicker();
+    
     $('#hide-done').click(function() {
         var isChecked = $(this).is(':checked');
         $.post("/Profile/UpdateSetting", { hideDone: isChecked }, function(data) { }, "json");
