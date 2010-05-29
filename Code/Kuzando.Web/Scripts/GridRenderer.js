@@ -237,6 +237,7 @@ function doActionIcons() {
         showOn: 'button',
         buttonImage: '/Content/Images/Calendar.png',
         buttonText: 'Click here to change date',
+        buttonImageOnly: true,
         dateFormat: 'dd/mm/yy'
     });
     $("#datepicker").change(function() {
