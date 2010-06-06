@@ -220,7 +220,8 @@ function getTodayInDays() {
 
 function dateToDaysSinceEpoch(date) {
     var millisInDay = 1000 * 3600 * 24;
-    return Math.floor(date.getTime() / millisInDay);
+    var minutesInDay = 60 * 24;         
+    return Math.floor(new Date().getTime() / millisInDay - new Date().getTimezoneOffset() / minutesInDay);
 }
 
 function colorToday() {
