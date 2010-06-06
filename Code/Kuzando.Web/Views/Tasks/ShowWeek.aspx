@@ -53,7 +53,7 @@
             </td>
             
             <td><img src="/Content/images/new_sticky.png" width="64" height="64" title="Create a new sticky" alt="" id="newsticky"/></td>
-            <td><img src="/Content/images/trashbin.png" width="60" height="60" title="Trash it" alt="" id="trash"/></td>
+            <td id="trash"><img src="/Content/images/trashbin.png" width="60" height="60" title="Trash it" alt=""/></td>
         </tr>
         
         <tr>
@@ -117,7 +117,7 @@
         <img class="warn" src="/Content/Images/warning.png" alt="overdue" height="20" width="20" title="This task is overdue!"/>
         </td>
         <td>
-        <div class="edit"></div>
+        <div class="edit editable"></div>
         </td>
     </tr>
     <tr>

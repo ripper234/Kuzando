@@ -380,6 +380,10 @@ button
 	vertical-align:text-bottom;
 	position:relative;
 }
+.sticky.ui-draggable-dragging
+{
+	opacity:0.8;
+}
 .done
 {
 	background-color: #F8FFBA;

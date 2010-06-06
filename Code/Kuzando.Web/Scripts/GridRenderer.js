@@ -158,7 +158,7 @@ function createCardFromTask(task) {
             // img.click(handle_checking);
         }
         newSticky.find("div.checked-cell").append(img);
-        edit = newSticky.find('.edit');
+        edit = newSticky.find('.editable');
         edit.attr('id', 'text' + taskId);
         edit.append(text);
         
@@ -187,7 +187,13 @@ function createCardFromTask(task) {
         });
         newSticky.draggable({ revert: 'invalid',
             revertDuration: 200,
-            scroll: false
+            scroll: false,
+            drag: function(event, ui) {
+                $(this).find('.edit').removeClass('editable');
+            },
+            stop: function(event, ui) {
+                $(this).find('.edit').addClass('editable');
+            }
         });
 
         return newSticky;
@@ -287,7 +293,7 @@ function doActionIcons() {
 
     $('#nextWeek').droppable(createNextPrevWeekDrag("next"));
     $('#prevWeek').droppable(createNextPrevWeekDrag("prev"));
-    
+
     $('#newsticky').draggable({
         revert: 'invalid',
         revertDuration: 200,
@@ -359,7 +365,7 @@ function getDraggedTask(ui){
 
     // an ugly hack - this happened some times
     // todo
-    if (draggable.className == 'edit')
+    if ($(draggable).hasClass('edit'))
         draggable = draggable.parentNode;
     return draggable;
 }
