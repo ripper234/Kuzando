@@ -221,7 +221,7 @@ function getTodayInDays() {
 function dateToDaysSinceEpoch(date) {
     var millisInDay = 1000 * 3600 * 24;
     var minutesInDay = 60 * 24;         
-    return Math.floor(new Date().getTime() / millisInDay - new Date().getTimezoneOffset() / minutesInDay);
+    return Math.floor(date.getTime() / millisInDay - date.getTimezoneOffset() / minutesInDay);
 }
 
 function colorToday() {
@@ -252,6 +252,7 @@ function doActionIcons() {
         var dateParts = strDate.split("/");
         var date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
         date.setHours(23);
+
         var days = dateToDaysSinceEpoch(date);
 
         var url = "/Tasks/ShowWeek?from=" + days;
