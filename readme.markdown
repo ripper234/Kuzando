@@ -19,4 +19,4 @@ If you have any suggestions, you're welcome to contribute ideas or patches.
 
 **Q - What does the name "Kuzando" stand for ?**
 
-Nothing. We looked for something that is easy to pronounce and spell, and doesn't have lots of Google results.
+Nothing. We looked for something that is easy to pronounce and spell, and doesn't have lots of Google results..
